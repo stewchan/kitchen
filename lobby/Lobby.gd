@@ -3,9 +3,9 @@ extends Control
 var WorldScene: PackedScene = preload("res://world/World.tscn")
 var PlayerScene: PackedScene = preload("res://player/Player.tscn")
 
-onready var multiplayer_config_ui = $MultiplayerConfig
-onready var server_ip = $MultiplayerConfig/V/V/ServerIP
-onready var device_ip_label = $MultiplayerConfig/V/V2/DeviceIPLabel
+onready var config_ui = $C/V/Config
+onready var server_ip = $C/V/Config/V/ServerIP
+onready var message_label = $C/V/Info/MessageLabel
 onready var world = get_parent().get_node("World")
 onready var players = get_parent().get_node("Players")
 
@@ -16,13 +16,12 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
 
 	server_ip.text = Network.ip_address
-	device_ip_label.text = Network.ip_address
+	message_label.text = "Your IP: " + Network.ip_address
 
 
 func _on_player_connected(id: int) -> void:
 	print("Player connected: " + str(id))
 	if Network.pid == 1:
-		print("updating")
 		update_players()
 
 
@@ -36,7 +35,8 @@ func _on_connected_to_server() -> void:
 
 
 func _on_CreateButton_pressed() -> void:
-	multiplayer_config_ui.hide()
+	config_ui.hide()
+	message_label.text = "Waiting for players..."
 	Network.create_server()
 	spawn_player(1)
 
@@ -47,7 +47,8 @@ func _on_JoinButton_pressed() -> void:
 		Network.ip_address = server_ip.text
 		Network.join_server()
 		spawn_player(Network.pid)
-		multiplayer_config_ui.hide()
+		config_ui.hide()
+		message_label.text = "Joined"
 		
 
 

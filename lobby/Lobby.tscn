@@ -28,7 +28,7 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="MultiplayerConfig" type="CenterContainer" parent="."]
+[node name="C" type="CenterContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -38,23 +38,26 @@ margin_top = -193.0
 margin_right = 250.0
 margin_bottom = 193.0
 
-[node name="V" type="VBoxContainer" parent="MultiplayerConfig"]
-margin_top = 6.0
+[node name="V" type="VBoxContainer" parent="C"]
+margin_top = 52.0
 margin_right = 500.0
-margin_bottom = 380.0
-custom_constants/separation = 20
+margin_bottom = 333.0
 
-[node name="V" type="VBoxContainer" parent="MultiplayerConfig/V"]
+[node name="Config" type="VBoxContainer" parent="C/V"]
+margin_right = 500.0
+margin_bottom = 240.0
+
+[node name="V" type="VBoxContainer" parent="C/V/Config"]
 margin_right = 500.0
 margin_bottom = 88.0
 
-[node name="Label" type="Label" parent="MultiplayerConfig/V/V"]
+[node name="Label" type="Label" parent="C/V/Config/V"]
 margin_right = 500.0
 margin_bottom = 25.0
 custom_fonts/font = SubResource( 4 )
 text = "Server IP"
 
-[node name="ServerIP" type="LineEdit" parent="MultiplayerConfig/V/V"]
+[node name="ServerIP" type="LineEdit" parent="C/V/Config/V"]
 margin_top = 29.0
 margin_right = 500.0
 margin_bottom = 88.0
@@ -64,43 +67,36 @@ text = "Server IP"
 align = 1
 clear_button_enabled = true
 
-[node name="JoinButton" type="Button" parent="MultiplayerConfig/V"]
-margin_top = 108.0
+[node name="JoinButton" type="Button" parent="C/V/Config"]
+margin_top = 92.0
 margin_right = 500.0
-margin_bottom = 163.0
+margin_bottom = 147.0
 custom_fonts/font = SubResource( 1 )
 text = "Join"
 
-[node name="CreateButton" type="Button" parent="MultiplayerConfig/V"]
-margin_top = 183.0
+[node name="CreateButton" type="Button" parent="C/V/Config"]
+margin_top = 151.0
 margin_right = 500.0
-margin_bottom = 238.0
+margin_bottom = 206.0
 custom_fonts/font = SubResource( 1 )
 text = "Create"
 
-[node name="HSeparator" type="HSeparator" parent="MultiplayerConfig/V"]
-margin_top = 258.0
+[node name="HSeparator" type="HSeparator" parent="C/V/Config"]
+margin_top = 210.0
 margin_right = 500.0
-margin_bottom = 288.0
+margin_bottom = 240.0
 rect_min_size = Vector2( 0, 30 )
 
-[node name="V2" type="VBoxContainer" parent="MultiplayerConfig/V"]
-margin_top = 308.0
+[node name="Info" type="VBoxContainer" parent="C/V"]
+margin_top = 244.0
 margin_right = 500.0
-margin_bottom = 374.0
+margin_bottom = 281.0
 
-[node name="Label" type="Label" parent="MultiplayerConfig/V/V2"]
+[node name="MessageLabel" type="Label" parent="C/V/Info"]
 margin_right = 500.0
-margin_bottom = 25.0
-custom_fonts/font = SubResource( 4 )
-text = "Your IP"
-
-[node name="DeviceIPLabel" type="Label" parent="MultiplayerConfig/V/V2"]
-margin_top = 29.0
-margin_right = 500.0
-margin_bottom = 66.0
+margin_bottom = 37.0
 custom_fonts/font = SubResource( 3 )
 align = 1
 
-[connection signal="pressed" from="MultiplayerConfig/V/JoinButton" to="." method="_on_JoinButton_pressed"]
-[connection signal="pressed" from="MultiplayerConfig/V/CreateButton" to="." method="_on_CreateButton_pressed"]
+[connection signal="pressed" from="C/V/Config/JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="pressed" from="C/V/Config/CreateButton" to="." method="_on_CreateButton_pressed"]
