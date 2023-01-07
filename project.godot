@@ -11,12 +11,13 @@ config_version=4
 [application]
 
 config/name="Kitchen"
-run/main_scene="res://lobby/Lobby.tscn"
+run/main_scene="res://game/Game.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Network="*res://network/Network.gd"
+Global="*res://Global.gd"
 
 [debug]
 

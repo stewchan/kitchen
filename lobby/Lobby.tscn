@@ -89,7 +89,7 @@ margin_top = 308.0
 margin_right = 500.0
 margin_bottom = 374.0
 
-[node name="Label2" type="Label" parent="MultiplayerConfig/V/V2"]
+[node name="Label" type="Label" parent="MultiplayerConfig/V/V2"]
 margin_right = 500.0
 margin_bottom = 25.0
 custom_fonts/font = SubResource( 4 )
