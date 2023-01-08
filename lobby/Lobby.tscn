@@ -87,16 +87,24 @@ margin_right = 500.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 0, 30 )
 
-[node name="Info" type="VBoxContainer" parent="C/V"]
+[node name="Waiting" type="VBoxContainer" parent="C/V"]
 margin_top = 244.0
 margin_right = 500.0
 margin_bottom = 281.0
 
-[node name="MessageLabel" type="Label" parent="C/V/Info"]
+[node name="MessageLabel" type="Label" parent="C/V/Waiting"]
 margin_right = 500.0
 margin_bottom = 37.0
 custom_fonts/font = SubResource( 3 )
 align = 1
 
+[node name="StartGameButton" type="Button" parent="C/V/Waiting"]
+visible = false
+margin_top = 41.0
+margin_right = 500.0
+margin_bottom = 61.0
+text = "Launch!"
+
 [connection signal="pressed" from="C/V/Config/JoinButton" to="." method="_on_JoinButton_pressed"]
 [connection signal="pressed" from="C/V/Config/CreateButton" to="." method="_on_CreateButton_pressed"]
+[connection signal="pressed" from="C/V/Waiting/StartGameButton" to="." method="_on_StartGameButton_pressed"]

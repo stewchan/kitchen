@@ -1,16 +1,19 @@
 extends Node
 
+var WorldScene: PackedScene = preload("res://world/World.tscn")
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
+onready var lobby = $Lobby
+onready var players = $Players
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	lobby.connect("start_game", self, "on_start_game")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func on_start_game() -> void:
+	var world = WorldScene.instance()
+	world.name = "World" + str(int(randi() % 100))
+	add_child(world, true)
+	self.remove_child(players)
+	world.add_child(players)
+	world.start_game()

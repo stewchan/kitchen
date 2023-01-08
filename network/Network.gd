@@ -22,8 +22,8 @@ func _ready() -> void:
 			ip_address = ip
 			break
 	
-	get_tree().connect("connected_to_server", self, "on_connected_to_server")
-	get_tree().connect("server_disconnected", self, "on_server_disconnected")
+	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
+	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
 
 
 func create_server() -> void:
@@ -33,11 +33,16 @@ func create_server() -> void:
 	get_tree().set_network_peer(server)
 
 
-func join_server() -> void:
+func join_server() -> bool:
 	client = NetworkedMultiplayerENet.new()
-	client.create_client(ip_address, DEFAULT_PORT)
+	var error = client.create_client(ip_address, DEFAULT_PORT)
+	# TODO check to ensure a server exists
+	if error:
+		print("No Server Found. Try creating one.")
+		return false
 	get_tree().set_network_peer(client)
 	pid = get_tree().get_network_unique_id()
+	return true
 
 
 func _on_connected_to_server() -> void:
