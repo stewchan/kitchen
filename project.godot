@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Dish",
+"language": "GDScript",
+"path": "res://kitchen/servery/dish/Dish.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Draggable",
 "language": "GDScript",
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://kitchen/draggable/plate/Plate.gd"
 } ]
 _global_script_class_icons={
+"Dish": "",
 "Draggable": "",
 "Ingredient": "",
 "Plate": ""
@@ -34,12 +40,10 @@ _global_script_class_icons={
 
 config/name="Kitchen"
 run/main_scene="res://game/Game.tscn"
-config/icon="res://icon.png"
 
 [autoload]
 
 Network="*res://network/Network.gd"
-Global="*res://Global.gd"
 
 [debug]
 

@@ -1,7 +1,0 @@
-[gd_scene format=2]
-
-[node name="Recipe" type="Node2D"]
-
-[node name="Ingredients" type="Node2D" parent="."]
-
-[node name="Ingredient" type="Node2D" parent="Ingredients"]

@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://kitchen/draggable/plate/Plate.gd" type="Script" id=1]
-[ext_resource path="res://addons/kenney_prototype_textures/dark/texture_01.png" type="Texture" id=2]
+[ext_resource path="res://addons/kenney_prototype_textures/light/texture_01.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 95.0001, 97.5 )
+extents = Vector2( 70.5001, 73.0001 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 72, 80 )
+extents = Vector2( 50, 54.5 )
 
 [node name="Plate" type="KinematicBody2D"]
 collision_layer = 2
@@ -20,13 +20,14 @@ scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -3.27825e-06, -2.50001 )
+position = Vector2( 1.5, 3 )
 scale = Vector2( 0.999999, 0.999999 )
 shape = SubResource( 1 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 1, 2.5 )
 shape = SubResource( 2 )
 
 [node name="Ingredients" type="Node2D" parent="."]

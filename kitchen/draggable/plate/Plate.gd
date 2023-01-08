@@ -2,18 +2,21 @@ extends Draggable
 class_name Plate
 
 
-# Container
-var ready_to_serve = false
-# List of plated ingredients
-
 var IngredientScene: PackedScene = preload("res://kitchen/draggable/ingredient/Ingredient.tscn")
 
 onready var ingredients = $Ingredients
 
 
+func get_dish() -> Dish:
+	return null
+
+
+#func get_dish() -> Dish:
+#	pass
+
+
 func combine(ingredient: KinematicBody2D):
-	# Loop through ingredients to combine them
-	print("Ingredient added")
+	# TODO: Loop through ingredients to combine them
 	ingredient.queue_free()
 	var new_ingredient = IngredientScene.instance()
 	new_ingredient.get_node("CollisionShape2D").free()
@@ -23,7 +26,6 @@ func combine(ingredient: KinematicBody2D):
 	new_ingredient.position = Vector2.ZERO
 
 
-func _on_Hitbox_body_entered(body: Node) -> void:
-	if body is Ingredient:
-		print("combining")
+func _on_Hitbox_body_entered(body: KinematicBody2D) -> void:
+	if body.has_method("ready_to_plate") and body.ready_to_plate():
 		combine(body)

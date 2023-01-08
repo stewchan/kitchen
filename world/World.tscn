@@ -1,8 +1,54 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://world/World.gd" type="Script" id=1]
 [ext_resource path="res://kitchen/draggable/plate/Plate.tscn" type="PackedScene" id=2]
 [ext_resource path="res://kitchen/draggable/ingredient/Ingredient.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/kenney_prototype_textures/orange/texture_01.png" type="Texture" id=4]
+[ext_resource path="res://kitchen/servery/Servery.tscn" type="PackedScene" id=5]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Draggable
+class_name Ingredient
+
+
+var ready_to_plate = true setget , ready_to_plate
+var ingredient_name = \"lettuce\" setget set_ingredient_name, get_ingredient_name
+var tomato_texture = preload(\"res://addons/kenney_prototype_textures/red/texture_01.png\")
+var lettuce_texture = preload(\"res://addons/kenney_prototype_textures/green/texture_01.png\")
+var eggplant_texture = preload(\"res://addons/kenney_prototype_textures/purple/texture_01.png\")
+
+onready var sprite = $Sprite
+
+
+func _ready() -> void:
+	if ingredient_name == \"tomato\":
+		sprite.texture = tomato_texture
+	elif ingredient_name == \"lettuce\":
+		sprite.texture = lettuce_texture
+	else:
+		sprite.texture = eggplant_texture
+			
+
+func set_ingredient_name(value: String) -> void:
+	ingredient_name = value
+
+
+func get_ingredient_name() -> String:
+	return ingredient_name
+
+
+func ready_to_plate() -> bool:
+	return ready_to_plate
+
+
+func _on_Hitbox_body_entered(body: Node) -> void:
+	if body == self:
+		return
+	if body as Ingredient:
+		$Hitbox/CollisionShape2D.queue_free()
+		$CollisionShape2D.queue_free()
+		print(str(body))
+"
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -10,6 +56,21 @@ script = ExtResource( 1 )
 [node name="Players" type="Node" parent="."]
 
 [node name="Orders" type="Node" parent="."]
+
+[node name="Order" type="Control" parent="Orders"]
+visible = false
+
+[node name="Label" type="Label" parent="Orders/Order"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Order"
+
+[node name="Sprite" type="Sprite" parent="Orders/Order"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 4 )
+
+[node name="Servery" parent="." instance=ExtResource( 5 )]
+position = Vector2( 944, 31 )
 
 [node name="Plate" parent="." instance=ExtResource( 2 )]
 position = Vector2( 464, 258 )
@@ -19,3 +80,21 @@ position = Vector2( 204, 228 )
 
 [node name="Ingredient2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 720, 282 )
+script = SubResource( 1 )
+
+[node name="HUD" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 46.0
+margin_top = 47.0
+margin_right = 46.0
+margin_bottom = 47.0
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+margin_right = 8.0
+margin_bottom = 14.0
+text = "0"
+align = 1
+valign = 1
+
+[editable path="Ingredient2"]
