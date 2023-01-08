@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Ingredient",
+"language": "GDScript",
+"path": "res://recipe/ingredient/Ingredient.gd"
+} ]
+_global_script_class_icons={
+"Ingredient": ""
+}
+
 [application]
 
 config/name="Kitchen"
@@ -27,6 +37,13 @@ multirun/add_custom_args=true
 multirun/first_window_args="listen"
 multirun/other_window_args="join"
 
+[display]
+
+window/size/width=1000
+window/size/height=540
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/multirun/plugin.cfg" )
@@ -38,6 +55,10 @@ multi=false
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [physics]
 
