@@ -10,12 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
+"class": "Draggable",
+"language": "GDScript",
+"path": "res://kitchen/draggable/Movable.gd"
+}, {
+"base": "Draggable",
 "class": "Ingredient",
 "language": "GDScript",
-"path": "res://recipe/ingredient/Ingredient.gd"
+"path": "res://kitchen/draggable/ingredient/Ingredient.gd"
+}, {
+"base": "Draggable",
+"class": "Plate",
+"language": "GDScript",
+"path": "res://kitchen/draggable/plate/Plate.gd"
 } ]
 _global_script_class_icons={
-"Ingredient": ""
+"Draggable": "",
+"Ingredient": "",
+"Plate": ""
 }
 
 [application]

@@ -1,5 +1,5 @@
 extends KinematicBody2D
-class_name Ingredient
+class_name Draggable
 
 
 var drag_enabled = false
@@ -41,11 +41,3 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if not event.pressed:
 			drag_enabled = false
-
-
-func _on_Hitbox_body_entered(body: Node) -> void:
-	if body == self:
-		return
-	if body as Ingredient:
-		
-		print(str(body))
