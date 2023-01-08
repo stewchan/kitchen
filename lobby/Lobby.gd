@@ -24,6 +24,7 @@ func _ready():
 func _on_player_connected(id: int) -> void:
 	print("Player connected: " + str(id))
 	if Network.pid == 1:
+		spawn_player(id)
 		update_players()
 
 
