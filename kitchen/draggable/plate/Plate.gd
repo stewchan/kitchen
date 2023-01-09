@@ -8,11 +8,12 @@ onready var ingredients = $Ingredients
 
 
 func get_dish() -> Dish:
-	return null
-
-
-#func get_dish() -> Dish:
-#	pass
+	var ingredients_list = []
+	for ingredient in ingredients.get_children():
+		ingredients_list.append(ingredient.name)
+	var dish = Dish.new()		
+	dish.set_ingredients(ingredients_list)
+	return dish
 
 
 func combine(ingredient: KinematicBody2D):
