@@ -2,8 +2,6 @@ extends Control
 class_name Order
 
 
-signal order_complete(order)
-
 var dish: Dish setget set_dish, get_dish
 
 
@@ -12,11 +10,7 @@ onready var ingredients_label = $V/IngredientsLabel
 
 
 func is_valid(other: Dish) -> bool:
-	if other.equal_to(dish):
-		emit_signal("order_complete", self as Order)
-		queue_free()
-		return true
-	return false
+	return other.equal_to(dish)
 
 
 func set_dish(value: Dish) -> void:

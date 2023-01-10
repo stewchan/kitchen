@@ -12,10 +12,6 @@ func _on_World_order_added(order: Order) -> void:
 	orders.add_child(order)
 
 
-func on_dish_served(dish: Dish) -> void:
-	for order in orders.get_children():
-		if order.is_valid(dish):
-			score += 5
-		else:
-			score -= 1
-		score_label.text = str(score)
+func update_score(val: int) -> void:
+	score = val
+	score_label.text = str(score)
