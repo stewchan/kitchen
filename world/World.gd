@@ -11,6 +11,8 @@ onready var hud = $HUD
 onready var orders = $Orders
 
 var IngredientScene = preload("res://kitchen/draggable/ingredient/Ingredient.tscn")
+var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
+var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
 
 
 func _ready() -> void:
@@ -30,6 +32,13 @@ func _ready() -> void:
 	ingredient3.set_name("lettuce")
 	ingredient3.position = Vector2(600,100)
 	add_child(ingredient3)
+	
+	var order = OrderScene.instance()
+	orders.add_child(order)
+	var dish = DishScene.instance()
+	dish.ingredients = ["tomato", "lettuce"]
+	order.set_dish(dish)
+	
 
 
 func start_game() -> void:

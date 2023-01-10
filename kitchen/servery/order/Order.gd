@@ -16,6 +16,7 @@ func set_dish(value: Dish) -> void:
 	dish = value
 	order_label.text = dish.get_name()
 	ingredients_label.text = PoolStringArray(dish.get_ingredients()).join(",")
+	add_child(dish)
 
 
 func get_dish() -> Dish:

@@ -4,12 +4,9 @@ extends Node2D
 signal served(dish)
 
 
-func _on_Servery_body_entered(body: Node) -> void:
-	if not body.has_method("get_dish"):
-		return
-
-	var dish = body.get_dish()
+func _on_Servery_body_entered(plate: Plate) -> void:
+	var dish = plate.get_dish()
 	if not dish.is_empty():
-		body.queue_free()
-		emit_signal("served", body.get_dish())
+		plate.queue_free()
+		emit_signal("served", plate.get_dish())
 

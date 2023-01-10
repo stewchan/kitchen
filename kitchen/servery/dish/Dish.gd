@@ -2,16 +2,22 @@ extends Node
 class_name Dish
 
 
-var ingredients = ["tomato"] setget set_ingredients, get_ingredients
-var dish_name = "empty"
+var ingredients = [] setget set_ingredients, get_ingredients
+var dish_name: String
 
 
 func get_name() -> String:
+	if not dish_name:
+		if not ingredients:
+			dish_name = "empty"
+		else:
+			dish_name = PoolStringArray(ingredients).join(",")
 	return dish_name
 
 
-func set_dish(ingredients: Array) -> void:
-	self.ingredients = ingredients
+# TODO: Set dish by name
+func set_dish(name: String) -> void:
+	pass
 
 
 func set_ingredients(value: Array) -> void:
