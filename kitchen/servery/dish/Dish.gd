@@ -3,7 +3,7 @@ class_name Dish
 
 
 var ingredients = ["tomato"] setget set_ingredients, get_ingredients
-var dish_name = "Soup"
+var dish_name = "empty"
 
 
 func get_name() -> String:

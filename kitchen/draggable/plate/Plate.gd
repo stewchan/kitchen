@@ -18,6 +18,10 @@ func get_dish() -> Dish:
 
 func combine(ingredient: Ingredient):
 	# TODO: Loop through ingredients to combine them
+	# Only allow 1 type of each ingredient on plate
+	for ing in ingredients.get_children():
+		if ing.same_as(ingredient):
+			return
 	var ing = ingredient.process_and_clone()
 	ingredient.queue_free()
 	ingredients.call_deferred("add_child", ing)

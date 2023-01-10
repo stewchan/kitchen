@@ -42,10 +42,15 @@ func process_and_clone() -> Ingredient:
 	ing.ingredient_name = self.ingredient_name
 	ing.get_node("CollisionShape2D").set_deferred("disabled", true)
 	ing.get_node("Hitbox/CollisionShape2D").set_deferred("disabled", true)
+	ing.name = ingredient_name
 #	ing.set_texture()
 	return ing
 
 
+func same_as(other: Ingredient) -> bool:
+	return get_name() == other.get_name()
+
+	
 func _on_Hitbox_body_entered(body: Node) -> void:
 	if body == self:
 		return

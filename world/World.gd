@@ -15,6 +15,7 @@ var IngredientScene = preload("res://kitchen/draggable/ingredient/Ingredient.tsc
 
 func _ready() -> void:
 	servery.connect("served", self, "on_dish_served")
+	
 	var ingredient1 = IngredientScene.instance()
 	ingredient1.set_name("tomato")
 	ingredient1.position = Vector2(200, 300)
@@ -24,6 +25,11 @@ func _ready() -> void:
 	ingredient2.set_name("lettuce")
 	ingredient2.position = Vector2(800,400)
 	add_child(ingredient2)
+	
+	var ingredient3 = IngredientScene.instance()
+	ingredient3.set_name("lettuce")
+	ingredient3.position = Vector2(600,100)
+	add_child(ingredient3)
 
 
 func start_game() -> void:
