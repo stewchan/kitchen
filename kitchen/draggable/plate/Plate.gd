@@ -16,17 +16,14 @@ func get_dish() -> Dish:
 	return dish
 
 
-func combine(ingredient: KinematicBody2D):
+func combine(ingredient: Ingredient):
 	# TODO: Loop through ingredients to combine them
+	var ing = ingredient.process_and_clone()
 	ingredient.queue_free()
-	var new_ingredient = IngredientScene.instance()
-	new_ingredient.get_node("CollisionShape2D").free()
-	new_ingredient.get_node("Hitbox").free()
-	ingredients.add_child(new_ingredient)
-	
-	new_ingredient.position = Vector2.ZERO
+	ingredients.call_deferred("add_child", ing)
+	ing.position = Vector2.ZERO
 
 
-func _on_Hitbox_body_entered(body: KinematicBody2D) -> void:
-	if body.has_method("ready_to_plate") and body.ready_to_plate():
-		combine(body)
+func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
+	if ingredient.ready_to_plate():
+		combine(ingredient)

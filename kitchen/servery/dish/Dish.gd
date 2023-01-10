@@ -6,6 +6,10 @@ var ingredients = ["tomato"] setget set_ingredients, get_ingredients
 var dish_name = "Soup"
 
 
+func get_name() -> String:
+	return dish_name
+
+
 func set_dish(ingredients: Array) -> void:
 	self.ingredients = ingredients
 
@@ -16,6 +20,10 @@ func set_ingredients(value: Array) -> void:
 
 func get_ingredients() -> Array:
 	return ingredients
+
+
+func is_empty() -> bool:
+	return ingredients == []
 
 
 func compare_to(other: Dish) -> bool:
