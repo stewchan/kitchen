@@ -1,15 +1,22 @@
 extends Control
+class_name Order
 
+
+signal order_complete(order)
 
 var dish: Dish setget set_dish, get_dish
 
 
-onready var order_label = $C/V/OrderLabel
-onready var ingredients_label = $C/V/IngredientsLabel
+onready var order_label = $V/OrderLabel
+onready var ingredients_label = $V/IngredientsLabel
 
 
-func _ready() -> void:
-	dish = $Dish
+func is_valid(other: Dish) -> bool:
+	if other.equal_to(dish):
+		emit_signal("order_complete", self as Order)
+		queue_free()
+		return true
+	return false
 
 
 func set_dish(value: Dish) -> void:
@@ -21,8 +28,7 @@ func set_dish(value: Dish) -> void:
 
 func get_dish() -> Dish:
 	return dish
-	
 
-func order_fulfilled(other_dish: Dish) -> bool:
-	queue_free()
-	return dish.compare_to(other_dish)
+
+
+	

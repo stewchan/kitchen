@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://kitchen/draggable/ingredient/Ingredient.gd"
 }, {
+"base": "Control",
+"class": "Order",
+"language": "GDScript",
+"path": "res://kitchen/servery/order/Order.gd"
+}, {
 "base": "Draggable",
 "class": "Plate",
 "language": "GDScript",
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "Dish": "",
 "Draggable": "",
 "Ingredient": "",
+"Order": "",
 "Plate": ""
 }
 

@@ -1,12 +1,14 @@
 extends Node2D
 
 
+signal order_added(order)
+
+
 var score: int = 0
 
 
 onready var players = $Players
 onready var servery = $Servery
-onready var score_label = $HUD/ScoreLabel
 onready var hud = $HUD
 onready var orders = $Orders
 
@@ -16,7 +18,7 @@ var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
 
 
 func _ready() -> void:
-	servery.connect("served", self, "on_dish_served")
+	servery.connect("served", hud, "on_dish_served")
 	
 	var ingredient1 = IngredientScene.instance()
 	ingredient1.set_name("tomato")
@@ -36,8 +38,16 @@ func _ready() -> void:
 	var order = OrderScene.instance()
 	orders.add_child(order)
 	var dish = DishScene.instance()
-	dish.ingredients = ["tomato", "lettuce"]
+	dish.ingredients = ["tomato"]#, "lettuce"]
 	order.set_dish(dish)
+	emit_signal("order_added", order)
+
+#	var order2 = OrderScene.instance()
+#	orders.add_child(order2)
+#	var dish2 = DishScene.instance()
+#	dish2.ingredients = ["lettuce"]#, "lettuce"]
+#	order2.set_dish(dish2)
+#	emit_signal("order_added", order2)
 	
 
 
@@ -45,11 +55,4 @@ func start_game() -> void:
 	pass
 	
 
-func on_dish_served(dish: Dish) -> void:
-	for order in orders.get_children():
-		if order.dish.compare_to(dish):
-			score += 5
-		else:
-			score -= 1
-	score_label.text = str(score)
-	
+

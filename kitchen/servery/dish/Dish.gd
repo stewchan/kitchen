@@ -12,6 +12,7 @@ func get_name() -> String:
 			dish_name = "empty"
 		else:
 			dish_name = PoolStringArray(ingredients).join(",")
+			dish_name = dish_name.capitalize()
 	return dish_name
 
 
@@ -32,7 +33,7 @@ func is_empty() -> bool:
 	return ingredients == []
 
 
-func compare_to(other: Dish) -> bool:
+func equal_to(other: Dish) -> bool:
 	var other_ingredients = other.get_ingredients()
 	if ingredients.size() != other_ingredients.size():
 		return false
