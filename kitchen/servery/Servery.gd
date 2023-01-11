@@ -9,4 +9,3 @@ func _on_Servery_body_entered(plate: Plate) -> void:
 	if not dish.is_empty():
 		plate.queue_free()
 		emit_signal("served", plate.get_dish())
-

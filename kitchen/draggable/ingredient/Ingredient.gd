@@ -17,12 +17,14 @@ func _ready() -> void:
 
 
 func set_texture() -> void:
-	if ingredient_name == "tomato":
+	if ingredient_name == "Tomato":
 		sprite.texture = tomato_img
-	elif ingredient_name == "lettuce":
+	elif ingredient_name == "Lettuce":
 		sprite.texture = lettuce_img
-	else:
+	elif ingredient_name == "Eggplant":
 		sprite.texture = eggplant_img
+	else:
+		print("error")
 
 
 func set_name(value: String) -> void:

@@ -16,7 +16,7 @@ func is_valid(other: Dish) -> bool:
 func set_dish(value: Dish) -> void:
 	dish = value
 	order_label.text = dish.get_name()
-	ingredients_label.text = PoolStringArray(dish.get_ingredients()).join(",")
+	ingredients_label.text = PoolStringArray(dish.get_ingredients()).join("\n")
 	add_child(dish)
 
 

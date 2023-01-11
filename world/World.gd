@@ -1,9 +1,15 @@
 extends Node2D
 
+signal order_added(order)
+signal order_completed(order)
+signal score_changed(score)
 
 var score: int = 0
 var order_count: int = 0
 var ingredient_count: int = 0
+var level: int = 1
+var dish_options = {}
+var ingredient_options = []
 
 var IngredientScene = preload("res://kitchen/draggable/ingredient/Ingredient.tscn")
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
@@ -13,7 +19,7 @@ var PlateScene = preload("res://kitchen/draggable/plate/Plate.tscn")
 onready var players = $Players
 onready var servery = $Servery
 onready var hud = $HUD
-onready var orders = $HUD/H/Orders
+onready var orders = $Orders
 onready var items = $Items
 onready var ingredient_timer = $IngredientTimer
 onready var order_timer = $OrderTimer
@@ -22,14 +28,43 @@ onready var order_timer = $OrderTimer
 func _ready() -> void:
 	randomize()
 	servery.connect("served", self, "on_dish_served")
-	
+	emit_signal("score_changed", score)
+	prepare_kitchen()
 	start_game()
 
 
+# TODO: Set up the game dish options and ingredients based on level
+func prepare_kitchen() -> void:
+	dish_options["Tomato Soup"] = ["Tomato"]
+	dish_options["Eggplant Soup"] = ["Eggplant"]
+	dish_options["Lettuce Soup"] = ["Lettuce"]
+	dish_options["Supreme Soup"] = ["Tomato", "Lettuce", "Eggplant"]
+	for dish_name in dish_options.keys():
+		for ingredient in dish_options[dish_name]:
+			if not ingredient_options.has(ingredient):
+				ingredient_options.append(ingredient)
+
+
+func random_dish() -> Dish:
+	var dish = DishScene.instance()
+	var r = randi() % dish_options.keys().size()
+	var dish_name = dish_options.keys()[r]
+	dish.dish_name = dish_name
+	dish.set_ingredients(dish_options[dish_name])
+	return dish
+
+	
+func random_ingredient() -> Ingredient:
+	var ingredient = IngredientScene.instance()
+	var r = randi() % ingredient_options.size()
+	ingredient.ingredient_name = ingredient_options[r]
+	return ingredient
+
+
 func start_game() -> void:
-	spawn_ingredient()
-	spawn_ingredient()
-	spawn_order()
+	spawn_ingredient(random_ingredient())
+	spawn_ingredient(random_ingredient())
+	spawn_order(random_dish())
 	spawn_plate()
 	ingredient_timer.start()
 	order_timer.start()
@@ -42,56 +77,43 @@ func spawn_plate() -> void:
 	items.call_deferred("move_child", plate, 0)
 	plate.position = get_viewport_rect().size/2
 
-	
-func spawn_order() -> void:
+
+func spawn_order(dish: Dish) -> void:
+	order_count += 1
 	var order = OrderScene.instance()
+	order.name = "Order" + str(order_count)
 	orders.add_child(order)
-	var dish = DishScene.instance()
-	var r = randi() % 3
-	if r == 1:
-		dish.ingredients = ["tomato"]
-	elif r == 2:
-		dish.ingredients = ["lettuce"]
-	else:
-		dish.ingredients = ["eggplant"]
 	order.set_dish(dish)
+	emit_signal("order_added", order)
 
 
-func spawn_ingredient() -> void:
-	var r = randi() % 3
-	var ingredient = IngredientScene.instance()
+func spawn_ingredient(ingredient: Ingredient) -> void:
 	ingredient_count += 1
-	ingredient.name = "ingredient" + str(ingredient_count)
-	if r == 1:
-		ingredient.set_name("tomato")
-	elif r == 2:
-		ingredient.set_name("lettuce")
-	else:
-		ingredient.set_name("eggplant")
 	ingredient.position = Vector2(ingredient_count % 4 * 200 + 50, 450)
-	items.call_deferred("add_child", ingredient)
+	items.call_deferred("add_child", ingredient, true)
 
 
 func on_dish_served(dish: Dish) -> void:
-	var order_valid = false
+	var completed_order: Order
 	for order in orders.get_children():
 		if not order.is_valid(dish):
 			continue
 		else:
-			order_valid = true
-			order.queue_free()
+			completed_order = order
 			break
-	if order_valid:
+	if completed_order:
 		score += 5
+		emit_signal("order_completed", completed_order)
+		completed_order.queue_free()
 	else:
 		score -= 1
-	hud.update_score(score)
+	emit_signal("score_changed", score)
 	spawn_plate()
 
 
 func _on_IngredientTimer_timeout() -> void:
-	spawn_ingredient()
+	spawn_ingredient(random_ingredient())
 
 
 func _on_OrderTimer_timeout() -> void:
-	spawn_order()
+	spawn_order(random_dish())

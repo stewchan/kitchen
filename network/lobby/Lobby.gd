@@ -15,8 +15,6 @@ func _ready():
 	get_tree().connect("network_peer_connected", self, "_on_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_on_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
-
-	
 	server_ip.text = Network.ip_address
 	message_label.text = "Your IP: " + Network.ip_address
 

@@ -3,16 +3,19 @@ class_name Dish
 
 
 var ingredients = [] setget set_ingredients, get_ingredients
-var dish_name: String
+var dish_name: String setget set_name, get_name
+
+
+func set_name(val: String) -> void:
+	dish_name = val
 
 
 func get_name() -> String:
 	if not dish_name:
 		if not ingredients:
-			dish_name = "empty"
+			dish_name = "Empty"
 		else:
-			dish_name = PoolStringArray(ingredients).join(",")
-			dish_name = dish_name.capitalize()
+			dish_name = PoolStringArray(ingredients).join(",") + str(" Soup")
 	return dish_name
 
 
