@@ -29,8 +29,14 @@ func _ready() -> void:
 	randomize()
 	servery.connect("served", self, "on_dish_served")
 	emit_signal("score_changed", score)
+
+
+func start_game() -> void:
 	prepare_kitchen()
-	start_game()
+	spawn_plate()
+	if Network.pid == 1:
+		ingredient_timer.start()
+		order_timer.start()
 
 
 # TODO: Set up the game dish options and ingredients based on level
@@ -45,31 +51,6 @@ func prepare_kitchen() -> void:
 				ingredient_options.append(ingredient)
 
 
-func random_dish() -> Dish:
-	var dish = DishScene.instance()
-	var r = randi() % dish_options.keys().size()
-	var dish_name = dish_options.keys()[r]
-	dish.dish_name = dish_name
-	dish.set_ingredients(dish_options[dish_name])
-	return dish
-
-	
-func random_ingredient() -> Ingredient:
-	var ingredient = IngredientScene.instance()
-	var r = randi() % ingredient_options.size()
-	ingredient.ingredient_name = ingredient_options[r]
-	return ingredient
-
-
-func start_game() -> void:
-	spawn_ingredient(random_ingredient())
-	spawn_ingredient(random_ingredient())
-	spawn_order(random_dish())
-	spawn_plate()
-	ingredient_timer.start()
-	order_timer.start()
-
-
 func spawn_plate() -> void:
 	var plate = PlateScene.instance()
 	plate.name = "Plate"
@@ -78,7 +59,7 @@ func spawn_plate() -> void:
 	plate.position = get_viewport_rect().size/2
 
 
-func spawn_order(dish: Dish) -> void:
+remote func spawn_order(dish: Dish) -> void:
 	order_count += 1
 	var order = OrderScene.instance()
 	order.name = "Order" + str(order_count)
@@ -109,6 +90,22 @@ func on_dish_served(dish: Dish) -> void:
 		score -= 1
 	emit_signal("score_changed", score)
 	spawn_plate()
+
+
+func random_dish() -> Dish:
+	var dish = DishScene.instance()
+	var r = int(randi() % dish_options.keys().size())
+	var dish_name = dish_options.keys()[r]
+	dish.dish_name = dish_name
+	dish.set_ingredients(dish_options[dish_name])
+	return dish
+
+	
+func random_ingredient() -> Ingredient:
+	var ingredient = IngredientScene.instance()
+	var r = int(randi() % ingredient_options.size())
+	ingredient.ingredient_name = ingredient_options[r]
+	return ingredient
 
 
 func _on_IngredientTimer_timeout() -> void:

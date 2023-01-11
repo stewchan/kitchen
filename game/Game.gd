@@ -20,3 +20,4 @@ func on_start_game() -> void:
 	add_child(world, true)
 	remove_child(players)
 	world.get_node("Players").replace_by(players)
+	world.start_game()
