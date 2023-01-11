@@ -10,6 +10,7 @@ var ingredient_count: int = 0
 var IngredientScene = preload("res://kitchen/draggable/ingredient/Ingredient.tscn")
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
+var PlateScene = preload("res://kitchen/draggable/plate/Plate.tscn")
 
 onready var players = $Players
 onready var servery = $Servery
@@ -28,8 +29,17 @@ func _ready() -> void:
 	spawn_order()
 	spawn_order()
 	spawn_order()
+	
+	spawn_plate()
 
 
+func spawn_plate() -> void:
+	var plate = PlateScene.instance()
+	plate.name = "Plate"
+	call_deferred("add_child", plate)
+	plate.position = get_viewport_rect().size/2
+
+	
 func spawn_order() -> void:
 	var order = OrderScene.instance()
 	orders.add_child(order)
@@ -56,19 +66,26 @@ func spawn_ingredient() -> void:
 		ingredient.set_name("tomato")
 	else:
 		ingredient.set_name("eggplant")
-	ingredient.position = Vector2(ingredient_count * 200, 450)
-	add_child(ingredient)
+	ingredient.position = Vector2(ingredient_count % 4 * 200 + 50, 450)
+	call_deferred("add_child", ingredient)
 
 
 func on_dish_served(dish: Dish) -> void:
+	var order_valid = false
 	for order in orders.get_children():
-		if order.is_valid(dish):
-			score += 5
-			hud.update_score(score)
+		if not order.is_valid(dish):
+			continue
+		else:
+			order_valid = true
 			order.queue_free()
-			return
-	score -= 1
+			break
+	if order_valid:
+		score += 5
+	else:
+		score -= 1
 	hud.update_score(score)
+	spawn_plate()
+	spawn_ingredient()
 
 
 func start_game() -> void:
