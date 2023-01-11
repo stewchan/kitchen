@@ -1,8 +1,6 @@
 extends Node2D
 
 
-signal order_added(order)
-
 var score: int = 0
 var order_count: int = 0
 var ingredient_count: int = 0
@@ -16,27 +14,32 @@ onready var players = $Players
 onready var servery = $Servery
 onready var hud = $HUD
 onready var orders = $HUD/H/Orders
+onready var items = $Items
+onready var ingredient_timer = $IngredientTimer
+onready var order_timer = $OrderTimer
 
 
 func _ready() -> void:
 	randomize()
 	servery.connect("served", self, "on_dish_served")
 	
+	start_game()
+
+
+func start_game() -> void:
 	spawn_ingredient()
 	spawn_ingredient()
-	spawn_ingredient()
-	
 	spawn_order()
-	spawn_order()
-	spawn_order()
-	
 	spawn_plate()
+	ingredient_timer.start()
+	order_timer.start()
 
 
 func spawn_plate() -> void:
 	var plate = PlateScene.instance()
 	plate.name = "Plate"
-	call_deferred("add_child", plate)
+	items.call_deferred("add_child", plate)
+	items.call_deferred("move_child", plate, 0)
 	plate.position = get_viewport_rect().size/2
 
 	
@@ -52,7 +55,6 @@ func spawn_order() -> void:
 	else:
 		dish.ingredients = ["eggplant"]
 	order.set_dish(dish)
-	emit_signal("order_added", order)
 
 
 func spawn_ingredient() -> void:
@@ -63,11 +65,11 @@ func spawn_ingredient() -> void:
 	if r == 1:
 		ingredient.set_name("tomato")
 	elif r == 2:
-		ingredient.set_name("tomato")
+		ingredient.set_name("lettuce")
 	else:
 		ingredient.set_name("eggplant")
 	ingredient.position = Vector2(ingredient_count % 4 * 200 + 50, 450)
-	call_deferred("add_child", ingredient)
+	items.call_deferred("add_child", ingredient)
 
 
 func on_dish_served(dish: Dish) -> void:
@@ -85,11 +87,11 @@ func on_dish_served(dish: Dish) -> void:
 		score -= 1
 	hud.update_score(score)
 	spawn_plate()
+
+
+func _on_IngredientTimer_timeout() -> void:
 	spawn_ingredient()
 
 
-func start_game() -> void:
-	pass
-	
-
-
+func _on_OrderTimer_timeout() -> void:
+	spawn_order()
