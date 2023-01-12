@@ -4,27 +4,21 @@ class_name Ingredient
 
 var ready_to_plate = true setget , ready_to_plate
 var ingredient_name: String setget set_name, get_name
-var tomato_img = preload("res://addons/kenney_prototype_textures/red/texture_01.png")
-var lettuce_img = preload("res://addons/kenney_prototype_textures/green/texture_01.png")
-var eggplant_img = preload("res://addons/kenney_prototype_textures/purple/texture_01.png")
 
+var ingredient_img_path = {
+	"Tomato": "res://addons/kenney_prototype_textures/red/texture_01.png",
+	"Lettuce": "res://addons/kenney_prototype_textures/green/texture_01.png",
+	"Eggplant": "res://addons/kenney_prototype_textures/purple/texture_01.png"
+}
 
 onready var sprite = $Sprite
 
-
-func _ready() -> void:
+func _ready():
 	set_texture()
 
 
 func set_texture() -> void:
-	if ingredient_name == "Tomato":
-		sprite.texture = tomato_img
-	elif ingredient_name == "Lettuce":
-		sprite.texture = lettuce_img
-	elif ingredient_name == "Eggplant":
-		sprite.texture = eggplant_img
-	else:
-		print("error")
+	sprite.texture = load(ingredient_img_path[ingredient_name])
 
 
 func set_name(value: String) -> void:

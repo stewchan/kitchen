@@ -7,9 +7,7 @@ onready var lobby = $Lobby
 onready var players = $Players
 
 
-
 func _ready() -> void:
-#	randomize()
 	lobby.connect("start_game", self, "on_start_game")
 
 

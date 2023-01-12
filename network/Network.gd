@@ -6,7 +6,7 @@ const MAX_CLIENTS = 6
 var server = null
 var client = null
 var ip_address = ""
-var pid = 0
+var pid = 1
 
 
 func _ready() -> void:
