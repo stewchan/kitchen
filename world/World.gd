@@ -1,8 +1,8 @@
 extends Node2D
 
-signal order_added(order)
-signal order_completed(order)
 signal score_changed(score)
+signal order_added(order)
+signal order_removed(order)
 
 var score: int = 0
 var order_count: int = 0
@@ -29,6 +29,7 @@ func _ready() -> void:
 	randomize()
 	servery.connect("served", self, "on_dish_served")
 	emit_signal("score_changed", score)
+	print(Network.pid)
 
 
 func start_game() -> void:
@@ -59,13 +60,23 @@ func spawn_plate() -> void:
 	plate.position = get_viewport_rect().size/2
 
 
-remote func spawn_order(dish: Dish) -> void:
+remotesync func spawn_order(dish_json: String) -> void:
 	order_count += 1
 	var order = OrderScene.instance()
 	order.name = "Order" + str(order_count)
 	orders.add_child(order)
-	order.set_dish(dish)
+	order.set_dish(str2var(dish_json))
 	emit_signal("order_added", order)
+
+
+remotesync func complete_order(order: Order, completed: bool) -> void:
+	if completed:
+		score += 5
+		order.queue_free()
+		emit_signal("order_removed", order)
+	else:
+		score -= 1
+	emit_signal("score_changed", score)
 
 
 func spawn_ingredient(ingredient: Ingredient) -> void:
@@ -75,20 +86,14 @@ func spawn_ingredient(ingredient: Ingredient) -> void:
 
 
 func on_dish_served(dish: Dish) -> void:
-	var completed_order: Order
-	for order in orders.get_children():
-		if not order.is_valid(dish):
-			continue
-		else:
-			completed_order = order
+	var completed = false
+	var order: Order
+	for o in orders.get_children():
+		if o.has_dish(dish):
+			order = o
+			completed = true
 			break
-	if completed_order:
-		score += 5
-		emit_signal("order_completed", completed_order)
-		completed_order.queue_free()
-	else:
-		score -= 1
-	emit_signal("score_changed", score)
+	rpc("complete_order", order, completed)	
 	spawn_plate()
 
 
@@ -100,7 +105,7 @@ func random_dish() -> Dish:
 	dish.set_ingredients(dish_options[dish_name])
 	return dish
 
-	
+
 func random_ingredient() -> Ingredient:
 	var ingredient = IngredientScene.instance()
 	var r = int(randi() % ingredient_options.size())
@@ -113,4 +118,5 @@ func _on_IngredientTimer_timeout() -> void:
 
 
 func _on_OrderTimer_timeout() -> void:
-	spawn_order(random_dish())
+	if Network.is_server():
+		rpc("spawn_order", var2str(random_dish()))

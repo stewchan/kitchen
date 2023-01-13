@@ -21,7 +21,7 @@ func get_name() -> String:
 
 # TODO: Set dish by name
 func set_dish(name: String) -> void:
-	pass
+	dish_name = "Empty"
 
 
 func set_ingredients(value: Array) -> void:

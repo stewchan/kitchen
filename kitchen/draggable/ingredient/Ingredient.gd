@@ -13,6 +13,7 @@ var ingredient_img_path = {
 
 onready var sprite = $Sprite
 
+
 func _ready():
 	set_texture()
 
@@ -23,6 +24,8 @@ func set_texture() -> void:
 
 func set_name(value: String) -> void:
 	ingredient_name = value
+	if sprite:
+		set_texture()
 
 
 func get_name() -> String:

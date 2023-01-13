@@ -4,12 +4,11 @@ class_name Order
 
 var dish: Dish setget set_dish, get_dish
 
-
 onready var order_label = $V/OrderLabel
 onready var ingredients_label = $V/IngredientsLabel
 
 
-func is_valid(other: Dish) -> bool:
+func has_dish(other: Dish) -> bool:
 	return other.equal_to(dish)
 
 

@@ -15,7 +15,7 @@ func _on_World_order_added(order: Order) -> void:
 	orders.add_child(new_order)
 
 
-func _on_World_order_completed(order: Order) -> void:
+func _on_World_order_removed(order: Order) -> void:
 	for o in orders.get_children():
 		if o.name == order.name:
 			orders.remove_child(o)

@@ -45,6 +45,10 @@ func join_server() -> bool:
 	return true
 
 
+func is_server() -> bool:
+	return pid == 1
+
+
 func _on_connected_to_server() -> void:
 	print("Connected to server")
 
