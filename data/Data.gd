@@ -1,18 +1,21 @@
 extends Node
 
-
-var recipes = {
+var recipes : Dictionary = {
+	"Empty": [],
 	"Salad": [
-		["lettuce"],
-		["lettuce", "tomato"]
+		["Lettuce"],
+		["Lettuce", "Tomato"],
 	],
 	"Soup": [
-		["tomato"],
-		["eggplant"]
+		["Tomato"],
+		["Eggplant"],
+		["Lettuce"],
+		["Tomato", "Eggplant", "Lettuce"]
 	],
-
 }
 
-var ingredients = [
-	"tomato", "eggplant", "lettuce"
-]
+
+
+
+
+

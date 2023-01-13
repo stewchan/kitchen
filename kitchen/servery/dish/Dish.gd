@@ -2,34 +2,22 @@ extends Node
 class_name Dish
 
 
-var ingredients: Array = [] #setget set_ingredients, get_ingredients
-var dish_name: String = "Empty" #setget set_name, get_name
+var ingredients: Array = []
+var dish_name: String = "Empty"
+
+func set_dish(recipe: Recipe) -> void:
+	dish_name = recipe.recipe_name
+	ingredients = recipe.ingredients
+
+
+func set_rand_dish() -> void:
+	var recipe = Recipe.new("Random")
+	dish_name = recipe.recipe_name
+	ingredients = recipe.ingredients
 
 
 func set_name(val: String) -> void:
 	dish_name = val
-
-
-#func get_name() -> String:
-#	if not dish_name:
-#		if not ingredients:
-#			dish_name = "Empty"
-#		else:
-#			dish_name = PoolStringArray(ingredients).join(",") + str(" Soup")
-#	return dish_name
-
-
-# TODO: Set dish by name
-#func set_dish(name: String) -> void:
-#	dish_name = "Empty"
-
-
-#func set_ingredients(value: Array) -> void:
-#	ingredients = value
-#
-#
-#func get_ingredients() -> Array:
-#	return ingredients
 
 
 func is_empty() -> bool:

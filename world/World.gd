@@ -8,7 +8,7 @@ var score: int = 0
 var order_count: int = 0
 var ingredient_count: int = 0
 var level: int = 1
-var dish_options = {}
+var recipe_list = []
 var ingredient_options = []
 
 var IngredientScene = preload("res://kitchen/draggable/ingredient/Ingredient.tscn")
@@ -42,14 +42,12 @@ func start_game() -> void:
 
 # TODO: Set up the game dish options and ingredients based on level
 func prepare_kitchen() -> void:
-	dish_options["Tomato Soup"] = ["Tomato"]
-	dish_options["Eggplant Soup"] = ["Eggplant"]
-	dish_options["Lettuce Soup"] = ["Lettuce"]
-	dish_options["Supreme Soup"] = ["Tomato", "Lettuce", "Eggplant"]
-	for dish_name in dish_options.keys():
-		for ingredient in dish_options[dish_name]:
-			if not ingredient_options.has(ingredient):
-				ingredient_options.append(ingredient)
+	recipe_list = ["Soup", "Salad"]
+	for recipe_name in recipe_list:
+		for ingredient_list in Data.recipes[recipe_name]:
+			for ingredient in ingredient_list:
+				if not ingredient_options.has(ingredient):
+					ingredient_options.append(ingredient)
 
 
 func spawn_plate() -> void:
@@ -98,10 +96,9 @@ func on_dish_served(dish: Dish) -> void:
 
 func random_dish() -> Dish:
 	var dish = DishScene.instance()
-	var r = int(randi() % dish_options.keys().size())
-	var dish_name = dish_options.keys()[r]
-	dish.dish_name = dish_name
-	dish.ingredients = dish_options[dish_name]
+	var name = recipe_list[int(randi() % recipe_list.size())]
+	var recipe = Recipe.new(name, -1)
+	dish.set_dish(recipe)
 	return dish
 
 

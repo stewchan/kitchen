@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "Plate",
 "language": "GDScript",
 "path": "res://kitchen/draggable/plate/Plate.gd"
+}, {
+"base": "Node",
+"class": "Recipe",
+"language": "GDScript",
+"path": "res://Recipe.gd"
 } ]
 _global_script_class_icons={
 "Dish": "",
 "Draggable": "",
 "Ingredient": "",
 "Order": "",
-"Plate": ""
+"Plate": "",
+"Recipe": ""
 }
 
 [application]
@@ -50,6 +56,7 @@ run/main_scene="res://game/Game.tscn"
 [autoload]
 
 Network="*res://network/Network.gd"
+Data="*res://data/Data.gd"
 
 [debug]
 
