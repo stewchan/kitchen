@@ -12,7 +12,7 @@ func get_dish() -> Dish:
 	for ingredient in ingredients.get_children():
 		ingredients_list.append(ingredient.name)
 	var dish = Dish.new()		
-	dish.set_ingredients(ingredients_list)
+	dish.ingredients = ingredients_list
 	return dish
 
 

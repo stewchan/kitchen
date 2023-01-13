@@ -2,34 +2,34 @@ extends Node
 class_name Dish
 
 
-var ingredients = [] setget set_ingredients, get_ingredients
-var dish_name: String setget set_name, get_name
+var ingredients: Array = [] #setget set_ingredients, get_ingredients
+var dish_name: String = "Empty" #setget set_name, get_name
 
 
 func set_name(val: String) -> void:
 	dish_name = val
 
 
-func get_name() -> String:
-	if not dish_name:
-		if not ingredients:
-			dish_name = "Empty"
-		else:
-			dish_name = PoolStringArray(ingredients).join(",") + str(" Soup")
-	return dish_name
+#func get_name() -> String:
+#	if not dish_name:
+#		if not ingredients:
+#			dish_name = "Empty"
+#		else:
+#			dish_name = PoolStringArray(ingredients).join(",") + str(" Soup")
+#	return dish_name
 
 
 # TODO: Set dish by name
-func set_dish(name: String) -> void:
-	dish_name = "Empty"
+#func set_dish(name: String) -> void:
+#	dish_name = "Empty"
 
 
-func set_ingredients(value: Array) -> void:
-	ingredients = value
-
-
-func get_ingredients() -> Array:
-	return ingredients
+#func set_ingredients(value: Array) -> void:
+#	ingredients = value
+#
+#
+#func get_ingredients() -> Array:
+#	return ingredients
 
 
 func is_empty() -> bool:
@@ -37,7 +37,7 @@ func is_empty() -> bool:
 
 
 func equal_to(other: Dish) -> bool:
-	var other_ingredients = other.get_ingredients()
+	var other_ingredients = other.ingredients
 	if ingredients.size() != other_ingredients.size():
 		return false
 	ingredients.sort()
@@ -47,6 +47,3 @@ func equal_to(other: Dish) -> bool:
 			return false
 	return true
 
-
-func _ready() -> void:
-	pass

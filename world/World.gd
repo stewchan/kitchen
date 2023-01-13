@@ -35,8 +35,8 @@ func _ready() -> void:
 func start_game() -> void:
 	prepare_kitchen()
 	spawn_plate()
+	ingredient_timer.start()
 	if Network.pid == 1:
-		ingredient_timer.start()
 		order_timer.start()
 
 
@@ -69,13 +69,14 @@ remotesync func spawn_order(dish_json: String) -> void:
 	emit_signal("order_added", order)
 
 
-remotesync func complete_order(order: Order, completed: bool) -> void:
-	if completed:
-		score += 5
-		order.queue_free()
-		emit_signal("order_removed", order)
-	else:
+remotesync func complete_order(order_name: String) -> void:
+	if order_name == "none":
 		score -= 1
+	elif orders.get_node_or_null(order_name):
+		var order = orders.get_node(order_name)
+		order.queue_free()
+		score += 5
+		emit_signal("order_removed", order)
 	emit_signal("score_changed", score)
 
 
@@ -86,14 +87,12 @@ func spawn_ingredient(ingredient: Ingredient) -> void:
 
 
 func on_dish_served(dish: Dish) -> void:
-	var completed = false
-	var order: Order
+	var order_name = "none"
 	for o in orders.get_children():
 		if o.has_dish(dish):
-			order = o
-			completed = true
+			order_name = o.name
 			break
-	rpc("complete_order", order, completed)	
+	rpc("complete_order", order_name)	
 	spawn_plate()
 
 
@@ -102,7 +101,7 @@ func random_dish() -> Dish:
 	var r = int(randi() % dish_options.keys().size())
 	var dish_name = dish_options.keys()[r]
 	dish.dish_name = dish_name
-	dish.set_ingredients(dish_options[dish_name])
+	dish.ingredients = dish_options[dish_name]
 	return dish
 
 
