@@ -11,7 +11,7 @@ extents = Vector2( 40, 40 )
 
 [node name="Ingredient" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 4
 gravity_scale = 0.0
 script = ExtResource( 2 )
 

@@ -41,6 +41,7 @@ func process_and_clone() -> Ingredient:
 	ing.ingredient_name = self.ingredient_name
 	ing.get_node("CollisionShape2D").set_deferred("disabled", true)
 	ing.get_node("Hitbox/CollisionShape2D").set_deferred("disabled", true)
+	ing.mode = RigidBody2D.MODE_STATIC
 	ing.name = ingredient_name
 #	ing.set_texture()
 	return ing

@@ -30,7 +30,6 @@ func _ready() -> void:
 	randomize()
 	servery.connect("served", self, "on_dish_served")
 	emit_signal("score_changed", score)
-	print(Network.pid)
 
 
 func start_game() -> void:
@@ -72,6 +71,7 @@ remotesync func spawn_order(dish_json: String) -> void:
 func spawn_ingredient(ingredient: Ingredient, pos: Vector2 = Vector2(100,100)) -> void:
 	ingredient_count += 1
 	ingredient.position = pos
+	ingredient.connect("clicked", self, "on_pickable_clicked")
 	items.call_deferred("add_child", ingredient, true)
 
 
@@ -109,6 +109,20 @@ func random_ingredient() -> Ingredient:
 	var r = int(randi() % ingredient_options.size())
 	ingredient.ingredient_name = ingredient_options[r]
 	return ingredient
+
+
+func on_pickable_clicked(object: Pickable) -> void:
+	if not held_object:
+		held_object = object
+		held_object.pickup()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		print("unhandled world: " + str(held_object))
+		if held_object and not event.pressed:
+			held_object.drop(Input.get_last_mouse_speed())
+			held_object = null
 
 
 func _on_IngredientTimer_timeout() -> void:
