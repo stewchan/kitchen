@@ -29,5 +29,8 @@ wait_time = 2.0
 [node name="OrderTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[connection signal="order_added" from="." to="HUD" method="_on_World_order_added"]
+[connection signal="order_removed" from="." to="HUD" method="_on_World_order_removed"]
+[connection signal="score_changed" from="." to="HUD" method="_on_World_score_changed"]
 [connection signal="timeout" from="IngredientTimer" to="." method="_on_IngredientTimer_timeout"]
 [connection signal="timeout" from="OrderTimer" to="." method="_on_OrderTimer_timeout"]

@@ -86,13 +86,14 @@ func on_dish_served(dish: Dish) -> void:
 
 
 remotesync func complete_order(order_name: String) -> void:
-	if order_name == "none":
-		score -= 1
-	elif orders.get_node_or_null(order_name):
+	if orders.get_node_or_null(order_name):
 		var order = orders.get_node(order_name)
+		print(order)
 		order.queue_free()
 		score += 5
 		emit_signal("order_removed", order)
+	else:
+		score -= 1
 	emit_signal("score_changed", score)
 
 
@@ -119,7 +120,6 @@ func on_pickable_clicked(object: Pickable) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		print("unhandled world: " + str(held_object))
 		if held_object and not event.pressed:
 			held_object.drop(Input.get_last_mouse_speed())
 			held_object = null
