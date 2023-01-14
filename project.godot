@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Draggable",
 "language": "GDScript",
-"path": "res://kitchen/draggable/Movable.gd"
+"path": "res://kitchen/draggable/Draggable.gd"
 }, {
 "base": "Draggable",
 "class": "Ingredient",

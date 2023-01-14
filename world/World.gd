@@ -78,9 +78,9 @@ remotesync func complete_order(order_name: String) -> void:
 	emit_signal("score_changed", score)
 
 
-func spawn_ingredient(ingredient: Ingredient) -> void:
+func spawn_ingredient(ingredient: Ingredient, pos: Vector2 = Vector2(100,100)) -> void:
 	ingredient_count += 1
-	ingredient.position = Vector2(ingredient_count % 4 * 200 + 50, 450)
+	ingredient.position = pos
 	items.call_deferred("add_child", ingredient, true)
 
 

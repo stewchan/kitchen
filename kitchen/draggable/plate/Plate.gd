@@ -1,7 +1,6 @@
 extends Draggable
 class_name Plate
 
-
 var IngredientScene: PackedScene = preload("res://kitchen/draggable/ingredient/Ingredient.tscn")
 
 onready var ingredients = $Ingredients

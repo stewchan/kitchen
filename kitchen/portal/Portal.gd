@@ -1,12 +1,12 @@
 extends Area2D
 
-signal remove_item(item)
-
 var next_peer: int
 
 
 func _ready() -> void:
 	pass
+
+
 
 
 func _on_Portal_body_entered(item: Ingredient) -> void:

@@ -28,7 +28,7 @@ func apply_movement(delta) -> void:
 	if drag_enabled:
 		var new_position = get_global_mouse_position()
 		movement = new_position - position;
-
+	
 	move_and_collide(movement)
 
 
