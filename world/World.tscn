@@ -24,10 +24,10 @@ position = Vector2( 944, 31 )
 position = Vector2( 951, 492 )
 
 [node name="IngredientTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 5.0
 
 [node name="OrderTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 5.0
 
 [connection signal="order_added" from="." to="HUD" method="_on_World_order_added"]
 [connection signal="order_removed" from="." to="HUD" method="_on_World_order_removed"]

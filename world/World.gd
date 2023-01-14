@@ -24,11 +24,13 @@ onready var orders = $Orders
 onready var items = $Items
 onready var ingredient_timer = $IngredientTimer
 onready var order_timer = $OrderTimer
+onready var portal = $Portal
 
 
 func _ready() -> void:
 	randomize()
 	servery.connect("served", self, "on_dish_served")
+	portal.connect("send_item_to", self, "on_send_item_to")
 	emit_signal("score_changed", score)
 
 
@@ -68,11 +70,14 @@ remotesync func spawn_order(dish_json: String) -> void:
 	emit_signal("order_added", order)
 
 
-func spawn_ingredient(ingredient: Ingredient, pos: Vector2 = Vector2(100,100)) -> void:
+remote func spawn_ingredient(ingred_name:String, pos: Vector2 = Vector2(100,100)) -> void:
+	var ingredient = IngredientScene.instance()
 	ingredient_count += 1
+	ingredient.name = "Ingredient" + str(ingredient_count)
+	ingredient.ingredient_name = ingred_name
+	items.add_child(ingredient, true)
 	ingredient.position = pos
 	ingredient.connect("clicked", self, "on_pickable_clicked")
-	items.call_deferred("add_child", ingredient, true)
 
 
 func on_dish_served(dish: Dish) -> void:
@@ -105,11 +110,19 @@ func random_dish() -> Dish:
 	return dish
 
 
-func random_ingredient() -> Ingredient:
-	var ingredient = IngredientScene.instance()
-	var r = int(randi() % ingredient_options.size())
-	ingredient.ingredient_name = ingredient_options[r]
-	return ingredient
+func random_ingred_name() -> String:
+	var i = int(randi() % ingredient_options.size())
+	return ingredient_options[i]
+#func random_ingredient() -> Ingredient:
+#	var ingredient = IngredientScene.instance()
+#	var r = int(randi() % ingredient_options.size())
+#	ingredient.ingredient_name = ingredient_options[r]
+#	return ingredient
+
+
+func on_send_item_to(item: Ingredient, peer: int) -> void:
+	rpc_id(peer, "spawn_ingredient", item.ingredient_name)
+	item.queue_free()
 
 
 func on_pickable_clicked(object: Pickable) -> void:
@@ -126,7 +139,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_IngredientTimer_timeout() -> void:
-	spawn_ingredient(random_ingredient())
+	spawn_ingredient(random_ingred_name())
+	
+#	rpc_id(Network.pid, "spawn_ingredient", random_ingred_name())
 
 
 func _on_OrderTimer_timeout() -> void:

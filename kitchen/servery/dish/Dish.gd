@@ -5,6 +5,7 @@ class_name Dish
 var ingredients: Array = []
 var dish_name: String = "Empty"
 
+
 func set_dish(recipe: Recipe) -> void:
 	dish_name = recipe.recipe_name
 	ingredients = recipe.ingredients
