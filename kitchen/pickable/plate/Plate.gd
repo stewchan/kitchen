@@ -1,7 +1,7 @@
-extends Draggable
+extends Pickable
 class_name Plate
 
-var IngredientScene: PackedScene = preload("res://kitchen/draggable/ingredient/Ingredient.tscn")
+var IngredientScene: PackedScene = preload("res://kitchen/pickable/ingredient/Ingredient.tscn")
 
 onready var ingredients = $Ingredients
 

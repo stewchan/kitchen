@@ -4,6 +4,7 @@ signal score_changed(score)
 signal order_added(order)
 signal order_removed(order)
 
+var held_object: Pickable = null
 var score: int = 0
 var order_count: int = 0
 var ingredient_count: int = 0
@@ -11,10 +12,10 @@ var level: int = 1
 var recipe_list = []
 var ingredient_options = []
 
-var IngredientScene = preload("res://kitchen/draggable/ingredient/Ingredient.tscn")
+var IngredientScene = preload("res://kitchen/pickable/ingredient/Ingredient.tscn")
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
-var PlateScene = preload("res://kitchen/draggable/plate/Plate.tscn")
+var PlateScene = preload("res://kitchen/pickable/plate/Plate.tscn")
 
 onready var players = $Players
 onready var servery = $Servery
@@ -53,6 +54,7 @@ func prepare_kitchen() -> void:
 func spawn_plate() -> void:
 	var plate = PlateScene.instance()
 	plate.name = "Plate"
+	plate.connect("clicked", self, "on_pickable_clicked")
 	items.call_deferred("add_child", plate)
 	items.call_deferred("move_child", plate, 0)
 	plate.position = get_viewport_rect().size/2
@@ -65,17 +67,6 @@ remotesync func spawn_order(dish_json: String) -> void:
 	orders.add_child(order)
 	order.set_dish(str2var(dish_json))
 	emit_signal("order_added", order)
-
-
-remotesync func complete_order(order_name: String) -> void:
-	if order_name == "none":
-		score -= 1
-	elif orders.get_node_or_null(order_name):
-		var order = orders.get_node(order_name)
-		order.queue_free()
-		score += 5
-		emit_signal("order_removed", order)
-	emit_signal("score_changed", score)
 
 
 func spawn_ingredient(ingredient: Ingredient, pos: Vector2 = Vector2(100,100)) -> void:
@@ -92,6 +83,17 @@ func on_dish_served(dish: Dish) -> void:
 			break
 	rpc("complete_order", order_name)	
 	spawn_plate()
+
+
+remotesync func complete_order(order_name: String) -> void:
+	if order_name == "none":
+		score -= 1
+	elif orders.get_node_or_null(order_name):
+		var order = orders.get_node(order_name)
+		order.queue_free()
+		score += 5
+		emit_signal("order_removed", order)
+	emit_signal("score_changed", score)
 
 
 func random_dish() -> Dish:

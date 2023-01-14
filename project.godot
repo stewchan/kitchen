@@ -14,25 +14,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://kitchen/servery/dish/Dish.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "Draggable",
-"language": "GDScript",
-"path": "res://kitchen/draggable/Draggable.gd"
-}, {
-"base": "Draggable",
+"base": "Pickable",
 "class": "Ingredient",
 "language": "GDScript",
-"path": "res://kitchen/draggable/ingredient/Ingredient.gd"
+"path": "res://kitchen/pickable/ingredient/Ingredient.gd"
 }, {
 "base": "Control",
 "class": "Order",
 "language": "GDScript",
 "path": "res://kitchen/servery/order/Order.gd"
 }, {
-"base": "Draggable",
+"base": "RigidBody2D",
+"class": "Pickable",
+"language": "GDScript",
+"path": "res://kitchen/pickable/Pickable.gd"
+}, {
+"base": "Pickable",
 "class": "Plate",
 "language": "GDScript",
-"path": "res://kitchen/draggable/plate/Plate.gd"
+"path": "res://kitchen/pickable/plate/Plate.gd"
 }, {
 "base": "Node",
 "class": "Recipe",
@@ -41,9 +41,9 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Dish": "",
-"Draggable": "",
 "Ingredient": "",
 "Order": "",
+"Pickable": "",
 "Plate": "",
 "Recipe": ""
 }

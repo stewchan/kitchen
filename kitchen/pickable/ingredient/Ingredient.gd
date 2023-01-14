@@ -1,4 +1,4 @@
-extends Draggable
+extends Pickable
 class_name Ingredient
 
 
