@@ -10,6 +10,7 @@ var speed = 100
 func _ready() -> void:
 	input_pickable = true
 	gravity_scale = 0
+	linear_damp = 1
 
 
 func _physics_process(delta: float) -> void:

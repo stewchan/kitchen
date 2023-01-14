@@ -16,6 +16,7 @@ var IngredientScene = preload("res://kitchen/pickable/ingredient/Ingredient.tscn
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
 var PlateScene = preload("res://kitchen/pickable/plate/Plate.tscn")
+var CuttingBoardScene = preload("res://kitchen/pickable/CuttingBoard.tscn")
 
 onready var players = $Players
 onready var servery = $Servery
@@ -37,6 +38,7 @@ func _ready() -> void:
 func start_game() -> void:
 	prepare_kitchen()
 	spawn_plate()
+	spawn_cutting_board()
 	ingredient_timer.start()
 	if Network.pid == 1:
 		order_timer.start()
@@ -59,6 +61,15 @@ func spawn_plate() -> void:
 	items.call_deferred("add_child", plate)
 	items.call_deferred("move_child", plate, 0)
 	plate.position = get_viewport_rect().size/2
+
+
+func spawn_cutting_board() -> void:
+	var board = CuttingBoardScene.instance()
+	board.name = "CuttingBoard"
+	board.connect("clicked", self, "on_pickable_clicked")
+	items.call_deferred("add_child", board)
+	items.call_deferred("move_child", board, 0)
+	board.position = Vector2(100, 400)
 
 
 remotesync func spawn_order(dish_json: String) -> void:

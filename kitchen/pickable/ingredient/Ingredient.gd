@@ -4,12 +4,7 @@ class_name Ingredient
 
 var ready_to_plate = true setget , ready_to_plate
 var ingredient_name: String setget set_name, get_name
-
-var ingredient_img_path = {
-	"Tomato": "res://addons/kenney_prototype_textures/red/texture_01.png",
-	"Lettuce": "res://addons/kenney_prototype_textures/green/texture_01.png",
-	"Eggplant": "res://addons/kenney_prototype_textures/purple/texture_01.png"
-}
+var prepped: bool = false
 
 onready var sprite = $Sprite
 
@@ -19,7 +14,7 @@ func _ready():
 
 
 func set_texture() -> void:
-	sprite.texture = load(ingredient_img_path[ingredient_name])
+	sprite.texture = load(Data.textures[ingredient_name].raw)
 
 
 func set_name(value: String) -> void:
