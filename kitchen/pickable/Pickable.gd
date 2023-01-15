@@ -21,9 +21,6 @@ func _physics_process(delta: float) -> void:
 		global_transform.origin = get_global_mouse_position()
 
 
-
-
-
 func pickup() -> void:
 	if picked_up:
 		return

@@ -4,33 +4,36 @@ class_name Ingredient
 
 var ingredient_name: String setget set_name, get_name
 var is_prepped: bool = false
-var progress = 0
-var prep_speed = 10
+var chop_speed = 10
 
 
 onready var sprite: Sprite = $Sprite
-onready var progress_bar: ProgressBar = $ProgressBar
+onready var progress_bar: TextureProgress = $ProgressBar
 onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 
 func _ready():
+	progress_bar.value = 0
 	update_texture()
 
 
 func chop():
 	if is_prepped:
 		return
-	if progress < progress_bar.max_value:
-		progress += prep_speed
-	elif progress >= progress_bar.max_value:
+	if not progress_bar.visible:
+		progress_bar.show()
+	if progress_bar.value < progress_bar.max_value:
+		progress_bar.value += chop_speed
+	elif progress_bar.value >= progress_bar.max_value:
 		is_prepped = true
+		progress_bar.hide()
 	update_texture()
 
 
 func update_texture() -> void:
-	if progress < progress_bar.max_value / 2:
+	if progress_bar.value < progress_bar.max_value / 2:
 		sprite.texture = load(Data.textures[ingredient_name].raw)
-	elif progress < progress_bar.max_value:
+	elif progress_bar.value < progress_bar.max_value:
 		sprite.texture = load(Data.textures[ingredient_name].progress)
 	else:
 		sprite.texture = load(Data.textures[ingredient_name].prepped)
@@ -53,7 +56,7 @@ func disable() -> void:
 
 func enable() -> void:
 	can_pickup = true
-	collision_shape.disabled = false
+	collision_shape.set_deferred("disabled", false)
 
 
 func process_and_clone() -> Ingredient:
