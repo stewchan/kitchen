@@ -57,7 +57,7 @@ func prepare_kitchen() -> void:
 func spawn_plate() -> void:
 	var plate = PlateScene.instance()
 	plate.name = "Plate"
-	plate.connect("clicked", self, "on_pickable_clicked")
+	plate.connect("picked_up", self, "on_pickup")
 	items.call_deferred("add_child", plate)
 	items.call_deferred("move_child", plate, 0)
 	plate.position = get_viewport_rect().size/2
@@ -66,7 +66,8 @@ func spawn_plate() -> void:
 func spawn_cutting_board() -> void:
 	var board = CuttingBoardScene.instance()
 	board.name = "CuttingBoard"
-	board.connect("clicked", self, "on_pickable_clicked")
+	board.connect("picked_up", self, "on_pickup")
+	board.connect("clicked", self, "on_clicked")
 	items.call_deferred("add_child", board)
 	items.call_deferred("move_child", board, 0)
 	board.position = Vector2(100, 400)
@@ -82,13 +83,14 @@ remotesync func spawn_order(dish_json: String) -> void:
 
 
 remote func spawn_ingredient(ingred_name:String, pos: Vector2 = Vector2(100,100)) -> void:
-	var ingredient = IngredientScene.instance()
+	var ingred = IngredientScene.instance()
 	ingredient_count += 1
-	ingredient.name = "Ingredient" + str(ingredient_count)
-	ingredient.ingredient_name = ingred_name
-	items.add_child(ingredient, true)
-	ingredient.position = pos
-	ingredient.connect("clicked", self, "on_pickable_clicked")
+	ingred.id = "Ingredient" + str(ingredient_count)
+	ingred.name = ingred.id
+	ingred.ingredient_name = ingred_name
+	items.add_child(ingred, true)
+	ingred.position = pos
+	ingred.connect("picked_up", self, "on_pickup")
 
 
 func on_dish_served(dish: Dish) -> void:
@@ -124,11 +126,6 @@ func random_dish() -> Dish:
 func random_ingred_name() -> String:
 	var i = int(randi() % ingredient_options.size())
 	return ingredient_options[i]
-#func random_ingredient() -> Ingredient:
-#	var ingredient = IngredientScene.instance()
-#	var r = int(randi() % ingredient_options.size())
-#	ingredient.ingredient_name = ingredient_options[r]
-#	return ingredient
 
 
 func on_send_item_to(item: Ingredient, peer: int) -> void:
@@ -136,10 +133,14 @@ func on_send_item_to(item: Ingredient, peer: int) -> void:
 	item.queue_free()
 
 
-func on_pickable_clicked(object: Pickable) -> void:
+func on_pickup(object: Pickable) -> void:
 	if not held_object:
 		held_object = object
 		held_object.pickup()
+
+
+func on_clicked(object: Pickable) -> void:
+	object.click_action()
 
 
 func _unhandled_input(event: InputEvent) -> void:

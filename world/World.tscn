@@ -24,7 +24,7 @@ position = Vector2( 944, 31 )
 position = Vector2( 951, 492 )
 
 [node name="IngredientTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 
 [node name="OrderTimer" type="Timer" parent="."]
 wait_time = 5.0

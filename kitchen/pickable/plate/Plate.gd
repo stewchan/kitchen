@@ -15,7 +15,7 @@ func get_dish() -> Dish:
 	return dish
 
 
-func combine(ingredient: Ingredient):
+func capture(ingredient: Ingredient):
 	# TODO: Loop through ingredients to combine them
 	# Only allow 1 type of each ingredient on plate
 	for ingred in ingredients.get_children():
@@ -29,5 +29,5 @@ func combine(ingredient: Ingredient):
 
 
 func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
-	if ingredient.ready_to_plate():
-		combine(ingredient)
+	if ingredient.is_prepped:
+		capture(ingredient)

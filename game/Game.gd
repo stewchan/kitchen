@@ -16,6 +16,8 @@ func on_start_game() -> void:
 	var world = WorldScene.instance()
 	world.name = "World" + str(world_count)
 	add_child(world, true)
+	G.set_world(world)
 	remove_child(players)
 	world.get_node("Players").replace_by(players)
 	world.start_game()
+

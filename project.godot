@@ -61,8 +61,9 @@ run/main_scene="res://game/Game.tscn"
 
 [autoload]
 
-Network="*res://network/Network.gd"
-Data="*res://data/Data.gd"
+Network="*res://autoload/Network.gd"
+G="*res://autoload/G.gd"
+Data="*res://autoload/Data.gd"
 
 [debug]
 
