@@ -17,6 +17,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if picked_up:
 		global_transform.origin = get_global_mouse_position()
+		action()
 
 
 func pickup() -> void:
@@ -36,6 +37,11 @@ func drop(impulse = Vector2.ZERO) -> void:
 		var collisionShape = get_node("CollisionShape2D") as CollisionShape2D
 		if collisionShape:
 			collisionShape.disabled = false
+
+
+# Override action to be performed when picked up
+func action() -> void:
+	pass
 
 
 func click_action() -> void:

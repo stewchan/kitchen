@@ -67,7 +67,6 @@ func spawn_cutting_board() -> void:
 	var board = CuttingBoardScene.instance()
 	board.name = "CuttingBoard"
 	board.connect("picked_up", self, "on_pickup")
-	board.connect("clicked", self, "on_clicked")
 	items.call_deferred("add_child", board)
 	items.call_deferred("move_child", board, 0)
 	board.position = Vector2(100, 400)
@@ -137,10 +136,6 @@ func on_pickup(object: Pickable) -> void:
 	if not held_object:
 		held_object = object
 		held_object.pickup()
-
-
-func on_clicked(object: Pickable) -> void:
-	object.click_action()
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -4,8 +4,7 @@ class_name Ingredient
 
 var ingredient_name: String setget set_name, get_name
 var is_prepped: bool = false
-var chop_speed = 10
-
+var chop_speed = 1
 
 onready var sprite: Sprite = $Sprite
 onready var progress_bar: TextureProgress = $ProgressBar
@@ -50,12 +49,16 @@ func get_name() -> String:
 
 
 func disable() -> void:
+	set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
 	can_pickup = false
+	input_pickable = false
 	collision_shape.set_deferred("disabled", true)
 
 
 func enable() -> void:
+	set_deferred("mode", RigidBody2D.MODE_RIGID)
 	can_pickup = true
+	input_pickable = true
 	collision_shape.set_deferred("disabled", false)
 
 
