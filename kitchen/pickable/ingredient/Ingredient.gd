@@ -62,17 +62,6 @@ func enable() -> void:
 	collision_shape.set_deferred("disabled", false)
 
 
-func process_and_clone() -> Ingredient:
-	var ing = self.duplicate()
-	ing.ingredient_name = self.ingredient_name
-	ing.get_node("CollisionShape2D").set_deferred("disabled", true)
-	ing.mode = RigidBody2D.MODE_STATIC
-	ing.name = ingredient_name
-	call_deferred("queue_free")
-#	ing.set_texture()
-	return ing
-
-
 func same_as(other: Ingredient) -> bool:
 	return get_name() == other.get_name()
 

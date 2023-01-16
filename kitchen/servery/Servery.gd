@@ -8,7 +8,8 @@ func _on_Servery_body_entered(body: RigidBody2D) -> void:
 	if not body is Plate:
 		return
 	var dish = body.get_dish()
-	if not dish.is_empty():
-		print(dish)
-		body.queue_free()
-		emit_signal("served", body.get_dish())
+	if dish.is_empty():
+		return
+	print(dish.ingredients)
+	body.queue_free()
+	emit_signal("served", body.get_dish())
