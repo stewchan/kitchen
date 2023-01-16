@@ -50,16 +50,17 @@ func get_name() -> String:
 
 func disable() -> void:
 	set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
+	collision_shape.set_deferred("disabled", true)
 	can_pickup = false
 	input_pickable = false
-	collision_shape.set_deferred("disabled", true)
 
 
 func enable() -> void:
 	set_deferred("mode", RigidBody2D.MODE_RIGID)
+	collision_shape.set_deferred("disabled", false)
 	can_pickup = true
 	input_pickable = true
-	collision_shape.set_deferred("disabled", false)
+	
 
 
 func same_as(other: Ingredient) -> bool:

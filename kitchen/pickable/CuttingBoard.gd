@@ -16,7 +16,8 @@ func capture(ingredient: Ingredient):
 
 func release() -> void:
 	current_ingred.enable()
-	G.reparent_to_world(current_ingred)
+	G.reparent_to_world(current_ingred, current_ingred.global_position)
+	drop()
 	current_ingred = null
 
 

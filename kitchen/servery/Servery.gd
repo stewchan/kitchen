@@ -1,6 +1,5 @@
 extends Node2D
 
-
 signal served(dish)
 
 
@@ -10,6 +9,5 @@ func _on_Servery_body_entered(body: RigidBody2D) -> void:
 	var dish = body.get_dish()
 	if dish.is_empty():
 		return
-	print(dish.ingredients)
 	body.queue_free()
 	emit_signal("served", body.get_dish())
