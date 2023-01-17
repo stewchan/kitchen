@@ -22,8 +22,9 @@ func release() -> void:
 		current_ingred = null
 
 
-func passive_action() -> void:
-	pass
+func cook() -> void:
+	if current_ingred and current_ingred.has_method("cook"):
+		current_ingred.cook()
 
 
 func action() -> void:

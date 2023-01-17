@@ -1,5 +1,5 @@
 extends CookingTool
-class_name Pot
+class_name CookPot
 
 
 func _ready() -> void:

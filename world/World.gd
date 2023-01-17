@@ -37,7 +37,7 @@ func _ready() -> void:
 
 func start_game() -> void:
 	prepare_kitchen()
-	spawn_plate()
+	items.spawn_plate(get_viewport_rect().size/2)
 	spawn_cutting_board()
 	ingredient_timer.start()
 	if Network.pid == 1:
@@ -81,7 +81,7 @@ remotesync func spawn_order(dish_json: String) -> void:
 	emit_signal("order_added", order)
 
 
-remote func spawn_ingredient(ingred_name:String, pos: Vector2 = Vector2(100,100)) -> void:
+remote func spawn_ingredient(ingred_name: String, pos: Vector2 = Vector2(100,100)) -> void:
 	var ingred = IngredientScene.instance()
 	ingredient_count += 1
 	ingred.id = "Ingredient" + str(ingredient_count)
@@ -146,8 +146,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_IngredientTimer_timeout() -> void:
 	spawn_ingredient(random_ingred_name())
-	
-#	rpc_id(Network.pid, "spawn_ingredient", random_ingred_name())
 
 
 func _on_OrderTimer_timeout() -> void:

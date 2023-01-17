@@ -18,4 +18,3 @@ func reparent_to_node(child: Pickable, new_parent, pos: Vector2 = Vector2.ZERO) 
 
 func reparent_to_world(ingred: Ingredient, global_pos: Vector2 = Vector2.ZERO) -> void:
 	reparent_to_node(ingred, world_node.get_node("Items"), global_pos)
-

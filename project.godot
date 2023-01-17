@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Box",
+"language": "GDScript",
+"path": "res://kitchen/pickable/tools/box/SpawnBox.gd"
+}, {
+"base": "CookingTool",
+"class": "CookPot",
+"language": "GDScript",
+"path": "res://kitchen/pickable/tools/cook_pot/CookPot.gd"
+}, {
 "base": "Pickable",
 "class": "CookingTool",
 "language": "GDScript",
@@ -44,17 +54,14 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://kitchen/pickable/plate/Plate.gd"
 }, {
-"base": "CookingTool",
-"class": "Pot",
-"language": "GDScript",
-"path": "res://kitchen/pickable/tools/pot/Pot.gd"
-}, {
 "base": "Node",
 "class": "Recipe",
 "language": "GDScript",
 "path": "res://kitchen/Recipe.gd"
 } ]
 _global_script_class_icons={
+"Box": "",
+"CookPot": "",
 "CookingTool": "",
 "CuttingBoard": "",
 "Dish": "",
@@ -62,7 +69,6 @@ _global_script_class_icons={
 "Order": "",
 "Pickable": "",
 "Plate": "",
-"Pot": "",
 "Recipe": ""
 }
 
