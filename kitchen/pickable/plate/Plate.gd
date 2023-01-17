@@ -9,7 +9,7 @@ onready var ingredients = $Ingredients
 func get_dish() -> Dish:
 	var ingredients_list = []
 	for ingredient in ingredients.get_children():
-		ingredients_list.append(ingredient.ingredient_name)
+		ingredients_list.append(ingredient.type)
 	var dish = Dish.new()		
 	dish.ingredients = ingredients_list
 	return dish

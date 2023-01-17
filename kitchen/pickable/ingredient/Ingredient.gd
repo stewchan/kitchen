@@ -2,7 +2,7 @@ extends Pickable
 class_name Ingredient
 
 
-var ingredient_name: String setget set_name, get_name
+var type: String setget set_type, get_type
 var is_prepped: bool = false
 var chop_speed = 1
 
@@ -31,21 +31,21 @@ func chop():
 
 func update_texture() -> void:
 	if progress_bar.value < progress_bar.max_value / 2:
-		sprite.texture = load(Data.textures[ingredient_name].raw)
+		sprite.texture = load(Data.textures[type].raw)
 	elif progress_bar.value < progress_bar.max_value:
-		sprite.texture = load(Data.textures[ingredient_name].progress)
+		sprite.texture = load(Data.textures[type].progress)
 	else:
-		sprite.texture = load(Data.textures[ingredient_name].prepped)
+		sprite.texture = load(Data.textures[type].prepped)
 
 
-func set_name(value: String) -> void:
-	ingredient_name = value
+func set_type(value: String) -> void:
+	type = value
 	if sprite:
 		update_texture()
 
 
-func get_name() -> String:
-	return ingredient_name
+func get_type() -> String:
+	return type
 
 
 func disable() -> void:

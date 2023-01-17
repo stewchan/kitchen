@@ -7,7 +7,6 @@ signal picked_up(drag_object)
 var picked_up = false
 var can_pickup = true
 var speed = 100
-var id: String
 
 
 func _ready() -> void:

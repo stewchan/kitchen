@@ -10,13 +10,9 @@ var order_count: int = 0
 var ingredient_count: int = 0
 var level: int = 1
 var recipe_list = []
-var ingredient_options = []
 
-var IngredientScene = preload("res://kitchen/pickable/ingredient/Ingredient.tscn")
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
-var PlateScene = preload("res://kitchen/pickable/plate/Plate.tscn")
-var CuttingBoardScene = preload("res://kitchen/pickable/tools/cutting_board/CuttingBoard.tscn")
 
 onready var players = $Players
 onready var servery = $Servery
@@ -38,7 +34,7 @@ func _ready() -> void:
 func start_game() -> void:
 	prepare_kitchen()
 	items.spawn_plate(get_viewport_rect().size/2)
-	spawn_cutting_board()
+	items.spawn_cutting_board(Vector2(100,400))
 	ingredient_timer.start()
 	if Network.pid == 1:
 		order_timer.start()
@@ -50,26 +46,8 @@ func prepare_kitchen() -> void:
 	for recipe_name in recipe_list:
 		for ingredient_list in Data.recipes[recipe_name]:
 			for ingredient in ingredient_list:
-				if not ingredient_options.has(ingredient):
-					ingredient_options.append(ingredient)
-
-
-func spawn_plate() -> void:
-	var plate = PlateScene.instance()
-	plate.name = "Plate"
-	plate.connect("picked_up", self, "on_pickup")
-	items.call_deferred("add_child", plate)
-	items.call_deferred("move_child", plate, 0)
-	plate.position = get_viewport_rect().size/2
-
-
-func spawn_cutting_board() -> void:
-	var board = CuttingBoardScene.instance()
-	board.name = "CuttingBoard"
-	board.connect("picked_up", self, "on_pickup")
-	items.call_deferred("add_child", board)
-	items.call_deferred("move_child", board, 0)
-	board.position = Vector2(100, 400)
+				if not items.ingredient_options.has(ingredient):
+					items.ingredient_options.append(ingredient)
 
 
 remotesync func spawn_order(dish_json: String) -> void:
@@ -81,17 +59,6 @@ remotesync func spawn_order(dish_json: String) -> void:
 	emit_signal("order_added", order)
 
 
-remote func spawn_ingredient(ingred_name: String, pos: Vector2 = Vector2(100,100)) -> void:
-	var ingred = IngredientScene.instance()
-	ingredient_count += 1
-	ingred.id = "Ingredient" + str(ingredient_count)
-	ingred.name = ingred.id
-	ingred.ingredient_name = ingred_name
-	items.add_child(ingred, true)
-	ingred.position = pos
-	ingred.connect("picked_up", self, "on_pickup")
-
-
 func on_dish_served(dish: Dish) -> void:
 	var order_name = "none"
 	for o in orders.get_children():
@@ -99,7 +66,7 @@ func on_dish_served(dish: Dish) -> void:
 			order_name = o.name
 			break
 	rpc("complete_order", order_name)	
-	spawn_plate()
+	items.spawn_plate(get_viewport_rect().size/2)
 
 
 remotesync func complete_order(order_name: String) -> void:
@@ -121,13 +88,8 @@ func random_dish() -> Dish:
 	return dish
 
 
-func random_ingred_name() -> String:
-	var i = int(randi() % ingredient_options.size())
-	return ingredient_options[i]
-
-
 func on_send_item_to(item: Ingredient, peer: int) -> void:
-	rpc_id(peer, "spawn_ingredient", item.ingredient_name)
+	rpc_id(peer, "spawn_ingredient", item.type)
 	item.queue_free()
 
 
@@ -145,7 +107,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_IngredientTimer_timeout() -> void:
-	spawn_ingredient(random_ingred_name())
+	items.spawn_ingredient()
 
 
 func _on_OrderTimer_timeout() -> void:
