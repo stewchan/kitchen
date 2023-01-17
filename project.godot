@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "CookingTool",
 "class": "CuttingBoard",
 "language": "GDScript",
-"path": "res://kitchen/pickable/CuttingBoard.gd"
+"path": "res://kitchen/pickable/tools/cutting_board/CuttingBoard.gd"
 }, {
 "base": "Node",
 "class": "Dish",
@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://kitchen/pickable/plate/Plate.gd"
 }, {
+"base": "CookingTool",
+"class": "Pot",
+"language": "GDScript",
+"path": "res://kitchen/pickable/tools/pot/Pot.gd"
+}, {
 "base": "Node",
 "class": "Recipe",
 "language": "GDScript",
@@ -57,6 +62,7 @@ _global_script_class_icons={
 "Order": "",
 "Pickable": "",
 "Plate": "",
+"Pot": "",
 "Recipe": ""
 }
 

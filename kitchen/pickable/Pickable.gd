@@ -11,6 +11,8 @@ var id: String
 
 
 func _ready() -> void:
+	gravity_scale = 0
+	linear_damp = 1
 	input_pickable = true
 
 

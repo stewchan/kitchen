@@ -16,7 +16,7 @@ var IngredientScene = preload("res://kitchen/pickable/ingredient/Ingredient.tscn
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
 var PlateScene = preload("res://kitchen/pickable/plate/Plate.tscn")
-var CuttingBoardScene = preload("res://kitchen/pickable/CuttingBoard.tscn")
+var CuttingBoardScene = preload("res://kitchen/pickable/tools/cutting_board/CuttingBoard.tscn")
 
 onready var players = $Players
 onready var servery = $Servery
