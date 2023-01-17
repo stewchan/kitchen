@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Pickable",
+"class": "CookingTool",
+"language": "GDScript",
+"path": "res://kitchen/pickable/tools/CookingTool.gd"
+}, {
+"base": "CookingTool",
 "class": "CuttingBoard",
 "language": "GDScript",
 "path": "res://kitchen/pickable/CuttingBoard.gd"
@@ -45,6 +50,7 @@ _global_script_classes=[ {
 "path": "res://kitchen/Recipe.gd"
 } ]
 _global_script_class_icons={
+"CookingTool": "",
 "CuttingBoard": "",
 "Dish": "",
 "Ingredient": "",

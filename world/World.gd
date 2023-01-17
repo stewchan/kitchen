@@ -104,10 +104,9 @@ func on_dish_served(dish: Dish) -> void:
 
 remotesync func complete_order(order_name: String) -> void:
 	if orders.get_node_or_null(order_name):
-		var order = orders.get_node(order_name)
-		print(order)
+		var order = orders.get_node(order_name) as Order
 		order.queue_free()
-		score += 5
+		score += order.value
 		emit_signal("order_removed", order)
 	else:
 		score -= 1
