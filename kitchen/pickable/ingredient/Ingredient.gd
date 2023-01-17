@@ -60,7 +60,10 @@ func enable() -> void:
 	collision_shape.set_deferred("disabled", false)
 	can_pickup = true
 	input_pickable = true
-	
+
+
+func trash() -> void:
+	queue_free()
 
 
 func same_as(other: Ingredient) -> bool:

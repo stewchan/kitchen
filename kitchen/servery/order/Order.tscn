@@ -1,5 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://addons/kenney_prototype_textures/green/texture_06.png" type="Texture" id=1]
+[ext_resource path="res://addons/kenney_prototype_textures/dark/texture_09.png" type="Texture" id=2]
 [ext_resource path="res://kitchen/servery/order/Order.gd" type="Script" id=3]
 
 [node name="Order" type="Panel"]
@@ -16,12 +18,29 @@ margin_right = 48.0
 margin_bottom = 49.0
 
 [node name="OrderLabel" type="Label" parent="V"]
-margin_right = 48.0
+margin_right = 80.0
 margin_bottom = 31.0
 text = "Food
 Ingred"
 
 [node name="IngredientsLabel" type="Label" parent="V"]
 margin_top = 35.0
-margin_right = 48.0
+margin_right = 80.0
 margin_bottom = 49.0
+size_flags_vertical = 1
+
+[node name="ExpireProgress" type="TextureProgress" parent="V"]
+margin_top = 53.0
+margin_right = 80.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 80, 10 )
+value = 100.0
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 1 )
+nine_patch_stretch = true
+
+[node name="ExpireTimer" type="Timer" parent="."]
+wait_time = 22.0
+one_shot = true
+
+[connection signal="timeout" from="ExpireTimer" to="." method="_on_LifetimeTimer_timeout"]
