@@ -1,7 +1,6 @@
 extends Node
 
 var recipes : Dictionary = {
-	"Empty": [],
 	"Salad": [
 		["Lettuce"],
 		["Lettuce", "Tomato"],

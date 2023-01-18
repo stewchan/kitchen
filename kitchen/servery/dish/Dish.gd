@@ -6,13 +6,15 @@ var ingredients: Array = []
 var dish_name: String = "Empty"
 
 
+static func random() -> Dish:
+	var dish = load("res://kitchen/servery/dish/Dish.gd").new()
+	var recipe = Recipe.random()
+	dish.dish_name = recipe.recipe_name
+	dish.ingredients = recipe.ingredients
+	return dish
+
+
 func set_dish(recipe: Recipe) -> void:
-	dish_name = recipe.recipe_name
-	ingredients = recipe.ingredients
-
-
-func set_rand_dish() -> void:
-	var recipe = Recipe.new("Random")
 	dish_name = recipe.recipe_name
 	ingredients = recipe.ingredients
 

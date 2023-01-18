@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://world/World.gd" type="Script" id=1]
 [ext_resource path="res://kitchen/portal/Portal.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://kitchen/servery/Servery.tscn" type="PackedScene" id=5]
 [ext_resource path="res://kitchen/trash/Trash.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/Items.gd" type="Script" id=7]
+[ext_resource path="res://world/Orders.gd" type="Script" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
@@ -43,6 +44,7 @@ script = ExtResource( 1 )
 
 [node name="Orders" type="Node2D" parent="."]
 visible = false
+script = ExtResource( 8 )
 
 [node name="Items" type="Node" parent="."]
 script = ExtResource( 7 )
@@ -68,8 +70,10 @@ tile_data = PoolIntArray( -1, 2, 0, -65536, 2, 0, -65535, 2, 0, -65534, 2, 0, -6
 [node name="Trash" parent="." instance=ExtResource( 6 )]
 position = Vector2( 964, 245 )
 
-[connection signal="order_added" from="." to="HUD" method="_on_World_order_added"]
-[connection signal="order_removed" from="." to="HUD" method="_on_World_order_removed"]
-[connection signal="score_changed" from="." to="HUD" method="_on_World_score_changed"]
+[connection signal="order_added" from="Orders" to="HUD" method="_on_Orders_order_added"]
+[connection signal="order_removed" from="Orders" to="HUD" method="_on_Orders_order_removed"]
+[connection signal="score_changed" from="Orders" to="HUD" method="_on_Orders_score_changed"]
+[connection signal="served" from="Servery" to="." method="_on_Servery_served"]
+[connection signal="send_item_to" from="Portal" to="." method="_on_Portal_send_item_to"]
 [connection signal="timeout" from="IngredientTimer" to="." method="_on_IngredientTimer_timeout"]
 [connection signal="timeout" from="OrderTimer" to="." method="_on_OrderTimer_timeout"]
