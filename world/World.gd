@@ -7,6 +7,7 @@ var recipe_list = []
 
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
+var BoxScene = preload("res://kitchen/pickable/box/SpawnBox.tscn")
 
 onready var players = $Players
 onready var servery = $Servery
@@ -33,12 +34,21 @@ func start_game() -> void:
 
 # TODO: Set up the game dish options and ingredients based on level
 func prepare_kitchen() -> void:
+	# Set up Recipes and Ingredients
 	recipe_list = ["Soup", "Salad"]
 	for recipe_name in recipe_list:
 		for ingredient_list in Data.recipes[recipe_name]:
 			for ingredient in ingredient_list:
 				if not items.ingredient_options.has(ingredient):
 					items.ingredient_options.append(ingredient)
+	# Set up ingredient boxes
+#	for ingred_name in items.ingredient_options:
+#	var box = BoxScene.instance()
+#	box.ingred_name = "Tomato"
+#	box.connect("spawn_ingredient", items, "spawn_ingredient")
+#	box.position = Vector2(100, 400)
+#	add_child(box)
+		
 
 
 func on_pickup(object: Pickable) -> void:

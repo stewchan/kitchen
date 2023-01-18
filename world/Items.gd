@@ -33,6 +33,11 @@ func spawn_cutting_board(pos: Vector2 = Vector2.ZERO) -> void:
 	call_deferred("move_child", board, 0)
 
 
+func random_ingred_type() -> String:
+	var i = int(randi() % ingredient_options.size())
+	return ingredient_options[i]
+
+
 remote func spawn_ingredient(type: String = random_ingred_type(), pos: Vector2 = Vector2.ZERO) -> void:
 	var ingred = spawn("Ingredient", pos)
 	ingred_count += 1
@@ -40,6 +45,3 @@ remote func spawn_ingredient(type: String = random_ingred_type(), pos: Vector2 =
 	ingred.name = "Ingred" + str(ingred_count)
 
 
-func random_ingred_type() -> String:
-	var i = int(randi() % ingredient_options.size())
-	return ingredient_options[i]
