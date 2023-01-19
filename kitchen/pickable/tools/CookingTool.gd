@@ -23,10 +23,8 @@ func release() -> void:
 		current_ingred.enable()
 		G.reparent_to_world(current_ingred, current_ingred.global_position)
 		drop()
-		yield(get_tree(), "idle_frame")
-		print(get_parent().get_parent().held_object == null)
+		yield(get_tree(), "idle_frame") # Required so pick up signal not called before drop
 		emit_signal("picked_up", current_ingred)
-		yield(get_tree(), "idle_frame")
 		current_ingred = null
 
 

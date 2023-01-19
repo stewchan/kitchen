@@ -6,6 +6,10 @@ var IngredientScene: PackedScene = preload("res://kitchen/pickable/ingredient/In
 onready var ingredients = $Ingredients
 
 
+func _ready() -> void:
+	default_mode = RigidBody2D.MODE_CHARACTER
+
+
 func get_dish() -> Dish:
 	var ingredients_list = []
 	for ingredient in ingredients.get_children():

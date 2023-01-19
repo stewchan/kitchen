@@ -39,10 +39,14 @@ func random_ingred_type() -> String:
 	return ingredient_options[i]
 
 
-remote func spawn_ingredient(type: String = random_ingred_type(), pos: Vector2 = Vector2.ZERO) -> void:
+remote func spawn_ingredient(
+		type: String = random_ingred_type(),
+		pos: Vector2 = Vector2.ZERO,
+		impulse: Vector2 = Vector2.ZERO) -> void:
 	var ingred = spawn("Ingredient", pos)
 	ingred_count += 1
 	ingred.type = type
 	ingred.name = "Ingred" + str(ingred_count)
+	ingred.apply_impulse(Vector2.ZERO, impulse)
 
 

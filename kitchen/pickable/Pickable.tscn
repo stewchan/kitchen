@@ -4,7 +4,7 @@
 [ext_resource path="res://kitchen/pickable/Pickable.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 96.3333, 96 )
+extents = Vector2( 51.5, 56 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 59, 63.5 )

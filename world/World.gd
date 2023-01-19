@@ -25,9 +25,7 @@ func _ready() -> void:
 
 func start_game() -> void:
 	prepare_kitchen()
-	items.spawn_plate(get_viewport_rect().size/2)
-	items.spawn_cutting_board(Vector2(100,400))
-	ingredient_timer.start()
+#	ingredient_timer.start()
 	if Network.pid == 1:
 		order_timer.start()
 
@@ -41,15 +39,18 @@ func prepare_kitchen() -> void:
 			for ingredient in ingredient_list:
 				if not items.ingredient_options.has(ingredient):
 					items.ingredient_options.append(ingredient)
+	items.spawn_plate(get_viewport_rect().size/2)
+	items.spawn_cutting_board(Vector2(100,400))
 	# Set up ingredient boxes
-#	for ingred_name in items.ingredient_options:
-	var box = BoxScene.instance()
-	add_child(box)
-	box.ingred_name = "Tomato"
-	box.connect("picked_up", self, "on_pickup")
-	box.connect("spawn_ingredient", items, "spawn_ingredient")
-	box.position = Vector2(100, 400)
-		
+	for i in range(0, items.ingredient_options.size()): # in items.ingredient_options:
+		var box = BoxScene.instance()
+		add_child(box)
+		move_child(box, 0)
+		box.ingred_name = items.ingredient_options[i]
+		box.connect("picked_up", self, "on_pickup")
+		box.connect("spawn_ingredient", items, "spawn_ingredient")
+		box.position = Vector2(100, 50) + Vector2(0, i * 150)
+
 
 # Called when picking up an object
 func on_pickup(object: Pickable) -> void:
