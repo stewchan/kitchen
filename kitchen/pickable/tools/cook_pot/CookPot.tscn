@@ -5,3 +5,8 @@
 
 [node name="CookPot" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="CookTimer" type="Timer" parent="." index="3"]
+wait_time = 0.2
+
+[connection signal="timeout" from="CookTimer" to="." method="_on_CookTimer_timeout"]

@@ -11,7 +11,6 @@ var can_spawn: bool = true
 func _ready() -> void:
 	mode = RigidBody2D.MODE_STATIC
 	immovable = true
-	default_mode = RigidBody2D.MODE_STATIC
 
 
 func action() -> void:

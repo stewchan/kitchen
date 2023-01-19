@@ -41,6 +41,7 @@ func prepare_kitchen() -> void:
 					items.ingredient_options.append(ingredient)
 	items.spawn_plate(get_viewport_rect().size/2)
 	items.spawn_cutting_board(Vector2(100,400))
+	items.spawn_cookpot(Vector2(800,500))
 	# Set up ingredient boxes
 	for i in range(0, items.ingredient_options.size()): # in items.ingredient_options:
 		var box = BoxScene.instance()
@@ -59,15 +60,14 @@ func on_pickup(object: Pickable) -> void:
 		held_object.pickup()
 
 
-# Called when object is dropped
+# Callback for when item is chopped and then immediately picked up
 func on_dropped(object: Pickable) -> void:
 	held_object = null
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if held_object and not event.pressed:
-			held_object.drop(Input.get_last_mouse_speed())
+			held_object.drop(Input.get_last_mouse_speed() )
 			held_object = null
 
 

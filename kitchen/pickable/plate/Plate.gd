@@ -7,7 +7,7 @@ onready var ingredients = $Ingredients
 
 
 func _ready() -> void:
-	default_mode = RigidBody2D.MODE_CHARACTER
+	mode = RigidBody2D.MODE_CHARACTER
 
 
 func get_dish() -> Dish:
@@ -38,5 +38,5 @@ func trash():
 
 
 func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
-	if ingredient.is_prepped:
+	if ingredient.is_plateable():
 		capture(ingredient)

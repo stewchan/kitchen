@@ -3,8 +3,11 @@ class_name Ingredient
 
 
 var type: String setget set_type, get_type
-var is_prepped: bool = false
+var is_chopped: bool = false
+var doneness = 0 # 0 - 100 where 100 is done
 var chop_speed = 1
+var cook_speed = 5
+
 
 onready var sprite: Sprite = $Sprite
 onready var progress_bar: TextureProgress = $ProgressBar
@@ -17,16 +20,42 @@ func _ready():
 
 
 func chop():
-	if is_prepped:
+	if is_chopped:
 		return
 	if not progress_bar.visible:
 		progress_bar.show()
 	if progress_bar.value < progress_bar.max_value:
 		progress_bar.value += chop_speed
 	elif progress_bar.value >= progress_bar.max_value:
-		is_prepped = true
+		is_chopped = true
 		progress_bar.hide()
 	update_texture()
+
+
+func cook():
+	if doneness >= 100 and progress_bar.visible:
+		progress_bar.hide()
+	elif doneness < 100 and not progress_bar.visible:
+		progress_bar.visible = true
+	doneness += cook_speed
+	if progress_bar.visible:
+		progress_bar.value = doneness
+	update_texture()
+	if doneness  > 150 and doneness < 200:
+		print("overcooked")
+	elif doneness > 200 and doneness < 250:
+		print("inedible")
+	elif doneness > 250:
+		print("burnt")
+
+
+func is_plateable():
+	return is_cooked() and doneness <= 200 || is_chopped
+	
+
+
+func is_cooked():
+	return doneness >= 100
 
 
 func update_texture() -> void:

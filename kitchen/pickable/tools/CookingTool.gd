@@ -8,7 +8,7 @@ onready var hitbox_collision_shape: CollisionShape2D = $Hitbox/CollisionShape2D
 
 
 func _ready() -> void:
-	default_mode = RigidBody2D.MODE_CHARACTER
+	mode = RigidBody2D.MODE_CHARACTER
 
 
 func capture(ingredient: Ingredient):
@@ -28,15 +28,10 @@ func release() -> void:
 		current_ingred = null
 
 
-func cook() -> void:
-	if current_ingred and current_ingred.has_method("cook"):
-		current_ingred.cook()
-
-
 func action() -> void:
 	pass
 
 
 func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
-	if not ingredient.is_prepped and not current_ingred:
+	if not ingredient.is_chopped and not current_ingred:
 		capture(ingredient)

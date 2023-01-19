@@ -12,6 +12,7 @@ var immovable = false
 
 
 func _ready() -> void:
+	default_mode = mode
 	gravity_scale = 0
 	linear_damp = 5
 	input_pickable = true
@@ -28,24 +29,24 @@ func pickup() -> void:
 	if selected:
 		return
 	selected = true	
-	if mode != RigidBody2D.MODE_STATIC:
-		mode = RigidBody2D.MODE_STATIC
+	if not immovable:
+		mode = RigidBody2D.MODE_CHARACTER
 		if get_node_or_null("CollisionShape2D"):
 			get_node("CollisionShape2D").disabled = true
 
 
 func drop(impulse = Vector2.ZERO) -> void:
+	print(impulse)
 	if selected:
 		mode = default_mode
 		selected = false
 		var collisionShape = get_node("CollisionShape2D") as CollisionShape2D
 		if collisionShape:
 			collisionShape.disabled = false
-		if mode != RigidBody2D.MODE_STATIC:
-			apply_central_impulse(impulse.clamped(5))
+		if not immovable:
+			apply_central_impulse(impulse.clamped(1000000))
 		# Confirm object has been dropped by emitting a signal
 		emit_signal("dropped", self)
-
 
 
 # Override action to be performed when picked up
