@@ -18,6 +18,7 @@ func spawn(item_name: String, pos: Vector2 = Vector2.ZERO) -> Pickable:
 	var item = items[item_name].instance()
 	item.name = item_name
 	item.connect("picked_up", get_parent(), "on_pickup")
+	item.connect("dropped", get_parent(), "on_dropped")
 	call_deferred("add_child", item, true)
 	item.position = pos
 	return item

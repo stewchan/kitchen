@@ -7,7 +7,7 @@ var recipe_list = []
 
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
-var BoxScene = preload("res://kitchen/pickable/box/SpawnBox.tscn")
+var BoxScene = preload("res://kitchen/pickable/spawn_box/SpawnBox.tscn")
 
 onready var players = $Players
 onready var servery = $Servery
@@ -43,18 +43,24 @@ func prepare_kitchen() -> void:
 					items.ingredient_options.append(ingredient)
 	# Set up ingredient boxes
 #	for ingred_name in items.ingredient_options:
-#	var box = BoxScene.instance()
-#	box.ingred_name = "Tomato"
-#	box.connect("spawn_ingredient", items, "spawn_ingredient")
-#	box.position = Vector2(100, 400)
-#	add_child(box)
+	var box = BoxScene.instance()
+	add_child(box)
+	box.ingred_name = "Tomato"
+	box.connect("picked_up", self, "on_pickup")
+	box.connect("spawn_ingredient", items, "spawn_ingredient")
+	box.position = Vector2(100, 400)
 		
 
-
+# Called when picking up an object
 func on_pickup(object: Pickable) -> void:
 	if not held_object:
 		held_object = object
 		held_object.pickup()
+
+
+# Called when object is dropped
+func on_dropped(object: Pickable) -> void:
+	held_object = null
 
 
 func _unhandled_input(event: InputEvent) -> void:

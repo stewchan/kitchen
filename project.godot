@@ -57,7 +57,7 @@ _global_script_classes=[ {
 "base": "Pickable",
 "class": "SpawnBox",
 "language": "GDScript",
-"path": "res://kitchen/pickable/box/SpawnBox.gd"
+"path": "res://kitchen/pickable/spawn_box/SpawnBox.gd"
 } ]
 _global_script_class_icons={
 "CookPot": "",
