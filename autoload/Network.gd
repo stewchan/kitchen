@@ -1,3 +1,4 @@
+# warning-ignore-all:return_value_discarded
 extends Node
 
 const DEFAULT_PORT = 12345

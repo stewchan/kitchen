@@ -61,8 +61,9 @@ func on_pickup(object: Pickable) -> void:
 
 
 # Callback for when item is chopped and then immediately picked up
-func on_dropped(object: Pickable) -> void:
+func on_dropped(_object: Pickable) -> void:
 	held_object = null
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

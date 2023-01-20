@@ -13,7 +13,7 @@ func capture(ingredient: Ingredient):
 
 
 # Override default mouse click to release cooked ingredient
-func _input_event(viewport, event, shape_idx):
+func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		if current_ingred and current_ingred.is_cooked():
 			cook_timer.stop()

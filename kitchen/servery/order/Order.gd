@@ -22,7 +22,7 @@ func _ready() -> void:
 	expire_timer.start()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	expire_progress.value = expire_timer.time_left
 
 

@@ -18,7 +18,7 @@ func _ready() -> void:
 	input_pickable = true
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if selected:
 		if not immovable:
 			global_transform.origin = get_global_mouse_position()
@@ -54,7 +54,7 @@ func action() -> void:
 	pass
 
 
-func _input_event(viewport, event, shape_idx):
+func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		emit_signal("picked_up", self)
 
