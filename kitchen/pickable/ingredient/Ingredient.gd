@@ -98,5 +98,5 @@ func is_cooked():
 
 
 func same_as(other: Ingredient) -> bool:
-	return get_name() == other.get_name()
+	return get_type() == other.get_type()
 
