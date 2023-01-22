@@ -7,7 +7,8 @@ var is_chopped: bool = false
 var doneness = 0 # 0 - 100 where 100 is done
 var chop_speed = 1
 var cook_speed = 5
-
+var image_path: String = "res://assets/ingredients/"
+var plate_layer: int = 0
 
 onready var sprite: Sprite = $Sprite
 onready var progress_bar: TextureProgress = $ProgressBar
@@ -49,22 +50,15 @@ func cook():
 		print("burnt")
 
 
-func is_plateable():
-	return is_cooked() and doneness <= 200 || is_chopped
-	
-
-
-func is_cooked():
-	return doneness >= 100
+func set_plated():
+	sprite.texture = load(image_path + str(type) + "-plated.png") #Data.textures[type].plated)
 
 
 func update_texture() -> void:
-	if progress_bar.value < progress_bar.max_value / 2:
-		sprite.texture = load(Data.textures[type].raw)
-	elif progress_bar.value < progress_bar.max_value:
-		sprite.texture = load(Data.textures[type].progress)
+	if progress_bar.value < progress_bar.max_value:
+		sprite.texture = load(image_path + str(type) + ".png") #Data.textures[type].raw)
 	else:
-		sprite.texture = load(Data.textures[type].prepped)
+		sprite.texture = load(image_path + str(type) + "-cut.png")
 
 
 func set_type(value: String) -> void:
@@ -93,6 +87,14 @@ func enable() -> void:
 
 func trash() -> void:
 	queue_free()
+
+
+func is_plateable():
+	return is_cooked() and doneness <= 200 || is_chopped
+
+
+func is_cooked():
+	return doneness >= 100
 
 
 func same_as(other: Ingredient) -> bool:

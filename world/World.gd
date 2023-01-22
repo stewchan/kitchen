@@ -33,10 +33,10 @@ func start_game() -> void:
 # TODO: Set up the game dish options and ingredients based on level
 func prepare_kitchen() -> void:
 	# Set up Recipes and Ingredients
-	recipe_list = ["Soup", "Salad"]
+	recipe_list = ["Pizza"]
 	for recipe_name in recipe_list:
-		for ingredient_list in Data.recipes[recipe_name]:
-			for ingredient in ingredient_list:
+		for ingredients in Data.recipes[recipe_name]:
+			for ingredient in ingredients:
 				if not items.ingredient_options.has(ingredient):
 					items.ingredient_options.append(ingredient)
 	items.spawn_plate(get_viewport_rect().size/2)

@@ -49,10 +49,14 @@ remote func spawn_ingredient(
 		type: String = random_ingred_type(),
 		pos: Vector2 = Vector2.ZERO,
 		impulse: Vector2 = Vector2.ZERO) -> void:
-	var ingred = spawn("Ingredient", pos)
+	var ingred = spawn("Ingredient", pos)	
 	ingred_count += 1
 	ingred.type = type
-	ingred.name = "Ingred" + str(ingred_count)
+	var index = ingredient_options.find(ingred.type)
+	print(ingredient_options)
+	assert(index >= 0)
+	ingred.plate_layer = index
+	ingred.name = ingred.type + str(ingred_count)
 	ingred.apply_impulse(Vector2.ZERO, impulse)
 
 

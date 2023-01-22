@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://kitchen/pickable/plate/Plate.gd" type="Script" id=1]
-[ext_resource path="res://addons/kenney_prototype_textures/light/texture_01.png" type="Texture" id=2]
+[ext_resource path="res://assets/tools/plate.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70.5001, 73.0001 )

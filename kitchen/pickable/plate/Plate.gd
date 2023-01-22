@@ -20,14 +20,19 @@ func get_dish() -> Dish:
 
 
 func capture(ingredient: Ingredient):
-	# TODO: Loop through ingredients to combine them
-	# Only allow 1 type of each ingredient on plate
 	for ingred in ingredients.get_children():
 		if ingred.same_as(ingredient):
 			return
-	ingredient.disable()
 	G.reparent_to_node(ingredient, ingredients)
+	ingredient.disable()
+	ingredient.set_plated()
 	ingredient.rotation = rotation
+	# move ingredients into correct draw order
+	for i in range(0, ingredients.get_children().size()):
+		if ingredient.plate_layer < ingredients.get_children()[i].plate_layer:
+			print(str(ingredient.plate_layer) + " " + str(ingredients.get_children()[i].plate_layer))
+			ingredients.call_deferred("move_child", ingredient, i)
+			break
 
 
 func trash():

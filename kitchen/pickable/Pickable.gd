@@ -7,7 +7,7 @@ signal dropped(pick_object)
 # The default game interaction is to pick up a single item
 var selected = false
 var speed = 100
-var default_mode = RigidBody2D.MODE_RIGID
+var default_mode: int
 var immovable = false
 
 
@@ -36,7 +36,6 @@ func pickup() -> void:
 
 
 func drop(impulse = Vector2.ZERO) -> void:
-	print(impulse)
 	if selected:
 		mode = default_mode
 		selected = false
@@ -44,7 +43,7 @@ func drop(impulse = Vector2.ZERO) -> void:
 		if collisionShape:
 			collisionShape.disabled = false
 		if not immovable:
-			apply_central_impulse(impulse.clamped(1000000))
+			apply_central_impulse(impulse.limit_length(1000000))
 		# Confirm object has been dropped by emitting a signal
 		emit_signal("dropped", self)
 

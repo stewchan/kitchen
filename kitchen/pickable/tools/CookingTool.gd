@@ -9,6 +9,7 @@ onready var hitbox_collision_shape: CollisionShape2D = $Hitbox/CollisionShape2D
 
 func _ready() -> void:
 	mode = RigidBody2D.MODE_CHARACTER
+	._ready()
 
 
 func capture(ingredient: Ingredient):
