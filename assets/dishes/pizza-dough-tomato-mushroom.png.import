@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pizza-tomato-mushroom.png-bee449054bcc90547e2708bfa8be0d07.stex"
+path="res://.import/pizza-dough-tomato-mushroom.png-e4d37be5a8b1c3ebf2acdb42d23a4f26.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ingredients/pizza-tomato-mushroom.png"
-dest_files=[ "res://.import/pizza-tomato-mushroom.png-bee449054bcc90547e2708bfa8be0d07.stex" ]
+source_file="res://assets/dishes/pizza-dough-tomato-mushroom.png"
+dest_files=[ "res://.import/pizza-dough-tomato-mushroom.png-e4d37be5a8b1c3ebf2acdb42d23a4f26.stex" ]
 
 [params]
 
