@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 
 
 func set_dish_from_recipe(recipe: Recipe) -> void:
-	var dish = DishScene.instance()
+	dish = DishScene.instance()
 	dish_node.add_child(dish)
 	dish.set_dish(recipe)
 	order_label.text = dish.dish_name
