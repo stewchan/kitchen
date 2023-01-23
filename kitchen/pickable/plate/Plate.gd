@@ -30,7 +30,6 @@ func capture(ingredient: Ingredient):
 	# move ingredients into correct draw order
 	for i in range(0, ingredients.get_children().size()):
 		if ingredient.plate_layer < ingredients.get_children()[i].plate_layer:
-			print(str(ingredient.plate_layer) + " " + str(ingredients.get_children()[i].plate_layer))
 			ingredients.call_deferred("move_child", ingredient, i)
 			break
 

@@ -53,7 +53,6 @@ remote func spawn_ingredient(
 	ingred_count += 1
 	ingred.type = type
 	var index = ingredient_options.find(ingred.type)
-	print(ingredient_options)
 	assert(index >= 0)
 	ingred.plate_layer = index
 	ingred.name = ingred.type + str(ingred_count)

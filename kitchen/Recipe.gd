@@ -17,7 +17,7 @@ func _init(name: String = "random", version: int = -1) -> void:
 		else:			
 			ingredients = Data.recipes[name][int(randi() % Data.recipes[name].size())]
 	else:
-		print("Recipe name doesn't exist - creating random recipe")
+		print("Recipe name doesn't exist...choosing random recipe")
 		recipe_name = Data.recipes.keys()[int(randi() % Data.recipes.size())]
 		ingredients = Data.recipes[recipe_name][int(randi() % Data.recipes[recipe_name].size())]
 
