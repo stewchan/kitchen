@@ -1,9 +1,11 @@
-extends Node
+extends TextureRect
 class_name Dish
 
 
 var ingredients: Array = []
 var dish_name: String = "Empty"
+var texture_base_path: String = "res://assets/dishes/"
+var texture_path: String
 
 
 static func random() -> Dish:
@@ -17,6 +19,16 @@ static func random() -> Dish:
 func set_dish(recipe: Recipe) -> void:
 	dish_name = recipe.recipe_name
 	ingredients = recipe.ingredients
+	update_texture()
+
+
+func update_texture() -> void:
+	texture_path = texture_base_path + dish_name
+	for ingredient_name in ingredients:
+		texture_path += "-" + ingredient_name
+	texture_path += ".png"
+	print(texture_path)
+	texture = load(texture_path)
 
 
 func set_name(val: String) -> void:

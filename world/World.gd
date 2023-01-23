@@ -78,7 +78,9 @@ func _on_IngredientTimer_timeout() -> void:
 
 func _on_OrderTimer_timeout() -> void:
 	if Network.is_server():
-		orders.rpc("spawn_order", var2str(Dish.random()))
+		var recipe_name = recipe_list[int(randi()%recipe_list.size())]
+		var recipe = Recipe.new(recipe_name, -1) # random version of this recipe
+		orders.rpc("spawn_order", var2str(recipe))
 
 
 func _on_Servery_served(dish: Dish) -> void:

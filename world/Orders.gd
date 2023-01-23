@@ -10,12 +10,12 @@ var order_count: int = 0
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 
 
-remotesync func spawn_order(dish_json: String) -> void:
+remotesync func spawn_order(recipe_json: String) -> void:
 	order_count += 1
 	var order = OrderScene.instance()
 	order.name = "Order" + str(order_count)
 	add_child(order)
-	order.set_dish(str2var(dish_json))
+	order.set_dish_from_recipe(str2var(recipe_json))
 	emit_signal("order_added", order)
 
 
@@ -23,7 +23,7 @@ remotesync func complete_order(order_name: String) -> void:
 	if get_node_or_null(order_name):
 		var order = get_node(order_name) as Order
 		order.queue_free()
-		score += order.value
+		score += order.score_value
 		emit_signal("order_removed", order)
 	else:
 		score -= 1

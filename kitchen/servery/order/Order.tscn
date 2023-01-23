@@ -16,23 +16,37 @@ script = ExtResource( 3 )
 [node name="V" type="VBoxContainer" parent="."]
 margin_right = 48.0
 margin_bottom = 49.0
+alignment = 1
 
 [node name="OrderLabel" type="Label" parent="V"]
 margin_right = 80.0
-margin_bottom = 31.0
-text = "Food
-Ingred"
+margin_bottom = 14.0
+text = "Food"
+align = 1
 
 [node name="IngredientsLabel" type="Label" parent="V"]
-margin_top = 35.0
+visible = false
+margin_top = 18.0
 margin_right = 80.0
 margin_bottom = 49.0
 size_flags_vertical = 1
+text = "Ingredient1
+Ingredient2"
+align = 1
+
+[node name="DishNode" type="HBoxContainer" parent="V"]
+margin_top = 18.0
+margin_right = 80.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 35, 35 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
 
 [node name="ExpireProgress" type="TextureProgress" parent="V"]
-margin_top = 53.0
+margin_top = 57.0
 margin_right = 80.0
-margin_bottom = 63.0
+margin_bottom = 67.0
 rect_min_size = Vector2( 80, 10 )
 value = 100.0
 texture_under = ExtResource( 2 )
