@@ -56,7 +56,10 @@ script = ExtResource( 8 )
 script = ExtResource( 7 )
 
 [node name="Servery" parent="." instance=ExtResource( 5 )]
-position = Vector2( 944, 31 )
+position = Vector2( 49, -26 )
+
+[node name="CollisionShape2D" parent="Servery" index="1"]
+position = Vector2( 463.5, 0.5 )
 
 [node name="Portal" parent="." instance=ExtResource( 2 )]
 position = Vector2( 951, 492 )
@@ -77,3 +80,5 @@ wait_time = 5.0
 [connection signal="send_item_to" from="Portal" to="." method="_on_Portal_send_item_to"]
 [connection signal="timeout" from="IngredientTimer" to="." method="_on_IngredientTimer_timeout"]
 [connection signal="timeout" from="OrderTimer" to="." method="_on_OrderTimer_timeout"]
+
+[editable path="Servery"]

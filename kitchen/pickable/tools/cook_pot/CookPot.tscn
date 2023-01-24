@@ -1,10 +1,27 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://kitchen/pickable/tools/CookingTool.tscn" type="PackedScene" id=1]
 [ext_resource path="res://kitchen/pickable/tools/cook_pot/CookPot.gd" type="Script" id=2]
+[ext_resource path="res://assets/tools/pot.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 82.0061
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 77.0065
 
 [node name="CookPot" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( 0, 0 )
+shape = SubResource( 2 )
 
 [node name="CookTimer" type="Timer" parent="." index="3"]
 wait_time = 0.2

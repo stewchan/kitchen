@@ -10,7 +10,8 @@ var items: Dictionary = {
 	"Plate": preload("res://kitchen/pickable/plate/Plate.tscn"),
 	"CuttingBoard": preload("res://kitchen/pickable/tools/cutting_board/CuttingBoard.tscn"),
 	"Ingredient": preload("res://kitchen/pickable/ingredient/Ingredient.tscn"),
-	"CookPot": preload("res://kitchen/pickable/tools/cook_pot/CookPot.tscn")
+	"CookPot": preload("res://kitchen/pickable/tools/cook_pot/CookPot.tscn"),
+	"SpawnBox": preload("res://kitchen/pickable/spawn_box/SpawnBox.tscn")
 }
 
 
@@ -38,6 +39,16 @@ func spawn_cutting_board(pos: Vector2 = Vector2.ZERO) -> void:
 func spawn_cookpot(pos: Vector2 = Vector2.ZERO) -> void:
 	var pot = spawn("CookPot", pos)
 	call_deferred("move_child", pot, 0)
+
+
+# Set up ingredient boxes
+func spawn_boxes() -> void:
+	for i in range(0, ingredient_options.size()): # in items.ingredient_options:
+		var box = spawn("SpawnBox", Vector2(300 + i * 150, 500))
+		call_deferred("move_child", box, 0)
+		box.ingred_name = ingredient_options[i]
+		box.connect("picked_up", self, "on_pickup")
+		box.connect("spawn_ingredient", self, "spawn_ingredient")
 
 
 func random_ingred_type() -> String:

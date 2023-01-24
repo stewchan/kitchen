@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/plate.png-08182ecec786753d64e9b652cb3ba723.stex"
+path="res://.import/pizza-dough-tomato.png-160ec96566f01d10329b70233159005c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tools/plate.png"
-dest_files=[ "res://.import/plate.png-08182ecec786753d64e9b652cb3ba723.stex" ]
+source_file="res://assets/dishes/pizza/pizza-dough-tomato.png"
+dest_files=[ "res://.import/pizza-dough-tomato.png-160ec96566f01d10329b70233159005c.stex" ]
 
 [params]
 
@@ -20,8 +20,8 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
-flags/mipmaps=false
+flags/filter=true
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true

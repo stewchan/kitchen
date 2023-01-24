@@ -1,5 +1,6 @@
 extends Node2D
 
+
 var held_object: Pickable = null
 var ingredient_count: int = 0
 var level: int = 1
@@ -42,15 +43,8 @@ func prepare_kitchen() -> void:
 	items.spawn_plate(get_viewport_rect().size/2)
 	items.spawn_cutting_board(Vector2(100,400))
 	items.spawn_cookpot(Vector2(800,500))
-	# Set up ingredient boxes
-	for i in range(0, items.ingredient_options.size()): # in items.ingredient_options:
-		var box = BoxScene.instance()
-		add_child(box)
-		move_child(box, 0)
-		box.ingred_name = items.ingredient_options[i]
-		box.connect("picked_up", self, "on_pickup")
-		box.connect("spawn_ingredient", items, "spawn_ingredient")
-		box.position = Vector2(100, 50) + Vector2(0, i * 150)
+	items.spawn_boxes()
+	
 
 
 # Called when picking up an object

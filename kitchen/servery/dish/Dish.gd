@@ -23,7 +23,7 @@ func set_dish(recipe: Recipe) -> void:
 
 
 func update_texture() -> void:
-	texture_path = texture_base_path + dish_name
+	texture_path = texture_base_path + dish_name + "/" + dish_name
 	for ingredient_name in ingredients:
 		texture_path += "-" + ingredient_name
 	texture_path += ".png"

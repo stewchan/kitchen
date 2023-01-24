@@ -16,7 +16,7 @@ func _ready() -> void:
 func action() -> void:
 	if can_spawn:
 		can_spawn = false
-		emit_signal("spawn_ingredient", ingred_name, global_position, Vector2.RIGHT * 300)
+		emit_signal("spawn_ingredient", ingred_name, global_position, Vector2.UP * 800)
 		drop()
 		can_spawn = true
 

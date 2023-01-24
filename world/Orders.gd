@@ -7,6 +7,7 @@ signal score_changed(score)
 
 var score: int = 0
 var order_count: int = 0
+var order_expire_penalty: int = -2
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 
 
@@ -16,7 +17,14 @@ remotesync func spawn_order(recipe_json: String) -> void:
 	order.name = "Order" + str(order_count)
 	add_child(order)
 	order.set_dish_from_recipe(str2var(recipe_json))
+	order.connect("order_expired", self, "on_order_expired")
 	emit_signal("order_added", order)
+
+
+func on_order_expired(_order: Order) -> void:
+	print("Order expired")
+	score += order_expire_penalty
+	emit_signal("score_changed", score)
 
 
 remotesync func complete_order(order_name: String) -> void:
