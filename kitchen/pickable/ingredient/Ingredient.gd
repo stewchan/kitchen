@@ -2,10 +2,10 @@ extends Pickable
 class_name Ingredient
 
 
-var type: String setget set_type, get_type
+var type: String setget set_type, get_type # eg "tomato"
 var is_chopped: bool = false
 var doneness = 0 # 0 - 100 where 100 is done
-var chop_speed = 1
+var chop_speed = 100
 var cook_speed = 5
 var image_path: String = "res://assets/ingredients/"
 var plate_layer: int = 0
@@ -20,13 +20,13 @@ func _ready():
 	update_texture()
 
 
-func chop():
+func chop(delta: float):
 	if is_chopped:
 		return
 	if not progress_bar.visible:
 		progress_bar.show()
 	if progress_bar.value < progress_bar.max_value:
-		progress_bar.value += chop_speed
+		progress_bar.value += chop_speed * delta
 	elif progress_bar.value >= progress_bar.max_value:
 		is_chopped = true
 		progress_bar.hide()
@@ -51,12 +51,12 @@ func cook():
 
 
 func set_plated():
-	sprite.texture = load(image_path + str(type) + "-plated.png") #Data.textures[type].plated)
+	sprite.texture = load(image_path + str(type) + "-plated.png")
 
 
 func update_texture() -> void:
 	if progress_bar.value < progress_bar.max_value:
-		sprite.texture = load(image_path + str(type) + ".png") #Data.textures[type].raw)
+		sprite.texture = load(image_path + str(type) + ".png")
 	else:
 		sprite.texture = load(image_path + str(type) + "-cut.png")
 

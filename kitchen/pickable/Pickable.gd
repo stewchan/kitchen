@@ -8,7 +8,6 @@ signal dropped(pick_object)
 var selected = false
 var speed = 100
 var default_mode: int
-var immovable = false
 
 
 func _ready() -> void:
@@ -18,38 +17,33 @@ func _ready() -> void:
 	input_pickable = true
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if selected:
-		if not immovable:
-			global_transform.origin = get_global_mouse_position()
-		action()
+		global_transform.origin = get_global_mouse_position()
+		action(delta)
 
 
 func pickup() -> void:
 	if selected:
 		return
 	selected = true	
-	if not immovable:
-		mode = RigidBody2D.MODE_CHARACTER
-		if get_node_or_null("CollisionShape2D"):
-			get_node("CollisionShape2D").disabled = true
+	mode = RigidBody2D.MODE_CHARACTER
+	if get_node_or_null("CollisionShape2D"):
+		get_node("CollisionShape2D").disabled = true
 
 
 func drop(impulse = Vector2.ZERO) -> void:
 	if selected:
 		mode = default_mode
 		selected = false
-		var collisionShape = get_node("CollisionShape2D") as CollisionShape2D
-		if collisionShape:
-			collisionShape.disabled = false
-		if not immovable:
-			apply_central_impulse(impulse.limit_length(1000000))
+		get_node("CollisionShape2D").disabled = false
+		apply_central_impulse(impulse.limit_length(1000))
 		# Confirm object has been dropped by emitting a signal
 		emit_signal("dropped", self)
 
 
 # Override action to be performed when picked up
-func action() -> void:
+func action(_delta: float) -> void:
 	pass
 
 

@@ -1,7 +1,6 @@
 extends Pickable
-class_name CookingTool
+class_name KitchenTool
 
-var IngredientScene: PackedScene = preload("res://kitchen/pickable/ingredient/Ingredient.tscn")
 var current_ingred: Ingredient = null
 
 onready var hitbox_collision_shape: CollisionShape2D = $Hitbox/CollisionShape2D
@@ -27,10 +26,6 @@ func release() -> void:
 		yield(get_tree(), "idle_frame") # Required so pick up signal not called before drop
 		emit_signal("picked_up", current_ingred)
 		current_ingred = null
-
-
-func action() -> void:
-	pass
 
 
 func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:

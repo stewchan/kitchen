@@ -8,7 +8,7 @@ var recipe_list = []
 
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
-var BoxScene = preload("res://kitchen/pickable/spawn_box/SpawnBox.tscn")
+var BoxScene = preload("res://kitchen/pickable/tools/spawn_box/SpawnBox.tscn")
 
 onready var players = $Players
 onready var servery = $Servery

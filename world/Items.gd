@@ -11,7 +11,7 @@ var items: Dictionary = {
 	"CuttingBoard": preload("res://kitchen/pickable/tools/cutting_board/CuttingBoard.tscn"),
 	"Ingredient": preload("res://kitchen/pickable/ingredient/Ingredient.tscn"),
 	"CookPot": preload("res://kitchen/pickable/tools/cook_pot/CookPot.tscn"),
-	"SpawnBox": preload("res://kitchen/pickable/spawn_box/SpawnBox.tscn")
+	"SpawnBox": preload("res://kitchen/pickable/tools/spawn_box/SpawnBox.tscn")
 }
 
 
@@ -44,11 +44,14 @@ func spawn_cookpot(pos: Vector2 = Vector2.ZERO) -> void:
 # Set up ingredient boxes
 func spawn_boxes() -> void:
 	for i in range(0, ingredient_options.size()): # in items.ingredient_options:
-		var box = spawn("SpawnBox", Vector2(300 + i * 150, 500))
+		var x_mid = get_parent().get_viewport_rect().size.x/2
+		var y_bot = get_parent().get_viewport_rect().size.y
+		var pos = Vector2(x_mid - 200 + 200 * i, y_bot - 70)
+		var box = spawn("SpawnBox", pos)
 		call_deferred("move_child", box, 0)
 		box.ingred_name = ingredient_options[i]
-		box.connect("picked_up", self, "on_pickup")
-		box.connect("spawn_ingredient", self, "spawn_ingredient")
+
+#		box.connect("spawn_ingredient", self, "on_spawn_ingredient")
 
 
 func random_ingred_type() -> String:
@@ -56,7 +59,7 @@ func random_ingred_type() -> String:
 	return ingredient_options[i]
 
 
-remote func spawn_ingredient(
+remote func on_spawn_ingredient(
 		type: String = random_ingred_type(),
 		pos: Vector2 = Vector2.ZERO,
 		impulse: Vector2 = Vector2.ZERO) -> void:

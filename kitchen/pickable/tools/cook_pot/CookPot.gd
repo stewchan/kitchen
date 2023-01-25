@@ -1,4 +1,4 @@
-extends CookingTool
+extends KitchenTool
 class_name CookPot
 
 
