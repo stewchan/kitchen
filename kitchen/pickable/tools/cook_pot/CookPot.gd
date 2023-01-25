@@ -24,5 +24,6 @@ func _input_event(_viewport, event, _shape_idx):
 
 func _on_CookTimer_timeout() -> void:
 	if current_ingred:
-		current_ingred.cook()
+		if weakref(current_ingred):
+			current_ingred.cook()
 		cook_timer.start()
