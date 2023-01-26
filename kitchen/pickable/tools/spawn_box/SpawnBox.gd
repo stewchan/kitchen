@@ -8,10 +8,9 @@ var ingred_name: String
 var can_spawn: bool = false
 var IngredientScene: PackedScene = preload("res://kitchen/pickable/ingredient/Ingredient.tscn")
 var base_alpha = 0.3
-var spawn_progress = 0
 
-onready var progress_bar = $ProgressBar
-onready var planting_timer = $PlantingTimer
+
+onready var restock_timer = $RestockTimer
 
 
 func _ready() -> void:
@@ -38,7 +37,7 @@ func action(delta: float) -> void:
 		progress_bar.hide()		
 		can_spawn = false
 		release()
-		planting_timer.start()
+		restock_timer.start()
 	else:
 		progress_bar.value += spawn_speed * delta
 		captured_ingredient.modulate.a = base_alpha \

@@ -6,66 +6,57 @@ export var chop_speed = 100
 export var cook_speed = 5
 
 var type: String setget set_type, get_type # eg "tomato"
-var is_chopped: bool = false
-var doneness = 0 # 0 - 100 where 100 is done
-var image_path: String = "res://assets/ingredients/"
+var _is_chopped: bool setget , is_chopped
+var _is_cooked: bool setget , is_cooked
+var _doneness = 0
+var image_path: String = "res://assets/images/ingredients/"
 var plate_layer: int = 0
 
 onready var sprite: Sprite = $Sprite
-onready var progress_bar: TextureProgress = $ProgressBar
 onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 
 func _ready():
-	progress_bar.value = 0
-	update_texture()
+	update_texture("raw")
 
 
-func chop(delta: float):
-	if is_chopped:
-		return
-	if not progress_bar.visible:
-		progress_bar.show()
-	if progress_bar.value < progress_bar.max_value:
-		progress_bar.value += chop_speed * delta
-	elif progress_bar.value >= progress_bar.max_value:
-		is_chopped = true
-		progress_bar.hide()
-	update_texture()
+func is_chopped() -> bool:
+	return _is_chopped
 
 
-func cook():
-	if doneness >= 100 and progress_bar.visible:
-		progress_bar.hide()
-	elif doneness < 100 and not progress_bar.visible:
-		progress_bar.visible = true
-	doneness += cook_speed
-	if progress_bar.visible:
-		progress_bar.value = doneness
-	update_texture()
-	if doneness  > 150 and doneness < 200:
-		print("overcooked")
-	elif doneness > 200 and doneness < 250:
-		print("inedible")
-	elif doneness > 250:
-		print("burnt")
+func is_cooked() -> bool:
+	return _is_cooked
+
+
+func set_is_chopped() -> void:
+	_is_chopped = true
+	update_texture("chopped")
+
+
+func set_is_cooked(doneness: int) -> void:
+	_is_cooked = true
+	_doneness = doneness
+	update_texture("cooked")
 
 
 func set_plated():
 	sprite.texture = load(image_path + str(type) + "-plated.png")
 
 
-func update_texture() -> void:
-	if progress_bar.value < progress_bar.max_value:
+func update_texture(state: String) -> void:
+	if state == "raw":
 		sprite.texture = load(image_path + str(type) + ".png")
-	else:
+	elif state == "chopped":
 		sprite.texture = load(image_path + str(type) + "-cut.png")
+	elif state == "cooked":
+		sprite.texture = load(image_path + str(type) + "-cut.png")
+		print("TODO: create ingredient cooked texture")
 
 
 func set_type(value: String) -> void:
 	type = value
 	if sprite:
-		update_texture()
+		update_texture("raw")
 
 
 func get_type() -> String:
@@ -89,11 +80,7 @@ func trash() -> void:
 
 
 func is_plateable():
-	return is_cooked() and doneness <= 200 || is_chopped
-
-
-func is_cooked():
-	return doneness >= 100
+	return is_cooked() and _doneness <= 200 || is_chopped()
 
 
 func same_as(other: Ingredient) -> bool:

@@ -7,6 +7,7 @@ onready var hitbox_collision_shape: CollisionShape2D = $Hitbox/CollisionShape2D
 onready var visibility_notifier = $VisibilityNotifier2D
 onready var visibility_timer = $VisibilityDetectorTimer
 onready var tool_respawn_timer = $ToolRespawnTimer
+onready var progress_bar = $ProgressBar
 
 
 func _init() -> void:
@@ -32,7 +33,7 @@ func release() -> void:
 
 
 func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
-	if not ingredient.is_chopped and not captured_ingredient:
+	if not ingredient.is_chopped() and not captured_ingredient:
 		capture(ingredient)
 
 

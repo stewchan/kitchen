@@ -40,7 +40,6 @@ func drop(impulse = Vector2.ZERO) -> void:
 		apply_central_impulse(impulse.limit_length(1000))
 		# Confirm object has been dropped by emitting a signal
 		emit_signal("dropped", self)
-		print("Pickable drop" + str(self))
 
 
 # Override action to be performed when picked up

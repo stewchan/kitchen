@@ -4,7 +4,7 @@ class_name Dish
 
 var ingredients: Array = []
 var dish_name: String = "Empty"
-var texture_base_path: String = "res://assets/dishes/"
+var texture_base_path: String = "res://assets/images/dishes/"
 var texture_path: String
 
 
@@ -27,7 +27,6 @@ func update_texture() -> void:
 	for ingredient_name in ingredients:
 		texture_path += "-" + ingredient_name
 	texture_path += ".png"
-	print(texture_path)
 	texture = load(texture_path)
 
 

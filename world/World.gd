@@ -55,7 +55,6 @@ func on_pickup(object: Pickable) -> void:
 
 # Callback for when item is chopped and then immediately picked up
 func on_dropped(_object: Pickable) -> void:
-	print("world drop" + str(_object))
 	held_object = null
 
 
