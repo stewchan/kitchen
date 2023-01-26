@@ -41,8 +41,8 @@ func prepare_kitchen() -> void:
 				if not items.ingredient_options.has(ingredient):
 					items.ingredient_options.append(ingredient)
 	items.spawn_plate(get_viewport_rect().size/2)
-	items.spawn_cutting_board(Vector2(100,400))
-	items.spawn_cookpot(Vector2(800,500))
+	items.spawn_cutting_board(get_viewport_rect().size/2)
+#	items.spawn_cookpot(Vector2(800,500))
 	items.spawn_boxes()
 
 

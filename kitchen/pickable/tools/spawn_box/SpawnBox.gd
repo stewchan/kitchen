@@ -48,6 +48,6 @@ func action(delta: float) -> void:
 			can_spawn = true
 
 
-func _on_PlantingTimer_timeout() -> void:
+func _on_RestockTimer_timeout() -> void:
 	if not captured_ingredient:
 		spawn_ingredient()

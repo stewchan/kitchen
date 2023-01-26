@@ -23,4 +23,9 @@ shape = SubResource( 1 )
 [node name="Hitbox" parent="." index="2"]
 scale = Vector2( 0.5, 0.5 )
 
-[node name="RestockTimer" type="Timer" parent="." index="7"]
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+disabled = true
+
+[node name="RestockTimer" type="Timer" parent="." index="8"]
+
+[connection signal="timeout" from="RestockTimer" to="." method="_on_RestockTimer_timeout"]

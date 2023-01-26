@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://kitchen/pickable/tools/KitchenTool.gd" type="Script" id=1]
 [ext_resource path="res://kitchen/pickable/Pickable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/images/tools/cutting-board.png" type="Texture" id=3]
 [ext_resource path="res://addons/kenney_prototype_textures/green/texture_03.png" type="Texture" id=4]
 [ext_resource path="res://addons/kenney_prototype_textures/dark/texture_02.png" type="Texture" id=5]
+[ext_resource path="res://assets/sounds/sfx/cleaver 6.wav" type="AudioStream" id=6]
 
 [node name="KitchenTool" instance=ExtResource( 2 )]
 collision_layer = 2
@@ -32,6 +33,9 @@ margin_bottom = 76.0
 texture_under = ExtResource( 5 )
 texture_progress = ExtResource( 4 )
 nine_patch_stretch = true
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="." index="7"]
+stream = ExtResource( 6 )
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="timeout" from="VisibilityDetectorTimer" to="." method="_on_VisibilityDetectorTimer_timeout"]

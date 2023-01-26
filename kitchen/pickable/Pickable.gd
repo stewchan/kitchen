@@ -23,6 +23,7 @@ func _physics_process(delta: float) -> void:
 		action(delta)
 
 
+
 func pickup() -> void:
 	if selected:
 		return
@@ -32,7 +33,7 @@ func pickup() -> void:
 		get_node("CollisionShape2D").disabled = true
 
 
-func drop(impulse = Vector2.ZERO) -> void:
+func drop(impulse: Vector2 = Vector2.ZERO) -> void:
 	if selected:
 		mode = default_mode
 		selected = false

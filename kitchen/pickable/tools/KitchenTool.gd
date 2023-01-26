@@ -4,15 +4,24 @@ class_name KitchenTool
 var captured_ingredient: Ingredient = null
 
 onready var hitbox_collision_shape: CollisionShape2D = $Hitbox/CollisionShape2D
-onready var visibility_notifier = $VisibilityNotifier2D
-onready var visibility_timer = $VisibilityDetectorTimer
-onready var tool_respawn_timer = $ToolRespawnTimer
-onready var progress_bar = $ProgressBar
+onready var visibility_notifier: VisibilityNotifier2D = $VisibilityNotifier2D
+onready var visibility_timer: Timer = $VisibilityDetectorTimer
+onready var tool_respawn_timer: Timer = $ToolRespawnTimer
+onready var progress_bar: TextureProgress = $ProgressBar
+onready var audio_player: AudioStreamPlayer2D = $AudioPlayer
 
 
 func _init() -> void:
 	mode = RigidBody2D.MODE_CHARACTER
 	._init()
+
+
+# Override to stop sounds playing on drop
+func drop(_impulse: Vector2 = Vector2.ZERO) -> void:
+#	var stream: AudioStream = audio_player.stream
+	audio_player.stream.loop_mode = AudioStreamSample.LOOP_DISABLED
+#	stream.loop_mode = AudioStreamSample.LOOP_DISABLED
+	.drop(_impulse)
 
 
 func capture(ingredient: Ingredient):
