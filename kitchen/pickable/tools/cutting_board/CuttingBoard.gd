@@ -3,8 +3,8 @@ class_name CuttingBoard
 
 
 func action(delta: float) -> void:
-	if current_ingred:
-		if current_ingred.is_chopped:
+	if captured_ingredient:
+		if captured_ingredient.is_chopped:
 			release()
 		else:
-			current_ingred.chop(delta)
+			captured_ingredient.chop(delta)

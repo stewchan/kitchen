@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name GameWorld
 
 var held_object: Pickable = null
 var ingredient_count: int = 0
@@ -44,7 +44,6 @@ func prepare_kitchen() -> void:
 	items.spawn_cutting_board(Vector2(100,400))
 	items.spawn_cookpot(Vector2(800,500))
 	items.spawn_boxes()
-	
 
 
 # Called when picking up an object
@@ -56,13 +55,14 @@ func on_pickup(object: Pickable) -> void:
 
 # Callback for when item is chopped and then immediately picked up
 func on_dropped(_object: Pickable) -> void:
+	print("world drop" + str(_object))
 	held_object = null
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if held_object and not event.pressed:
-			held_object.drop(Input.get_last_mouse_speed() )
+			held_object.drop(Input.get_last_mouse_speed())
 			held_object = null
 
 

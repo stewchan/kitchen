@@ -5,10 +5,10 @@
 [ext_resource path="res://assets/tools/pot.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 82.0061
+radius = 87.023
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 77.0065
+radius = 30.0666
 
 [node name="CookPot" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

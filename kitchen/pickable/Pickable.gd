@@ -10,7 +10,7 @@ var speed = 100
 var default_mode: int
 
 
-func _ready() -> void:
+func _init() -> void:
 	default_mode = mode
 	gravity_scale = 0
 	linear_damp = 5
@@ -40,6 +40,7 @@ func drop(impulse = Vector2.ZERO) -> void:
 		apply_central_impulse(impulse.limit_length(1000))
 		# Confirm object has been dropped by emitting a signal
 		emit_signal("dropped", self)
+		print("Pickable drop" + str(self))
 
 
 # Override action to be performed when picked up

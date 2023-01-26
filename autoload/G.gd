@@ -1,7 +1,7 @@
 extends Node
 
 
-var world_node: Node2D
+var world_node: GameWorld
 
 
 func set_world(world: Node2D) -> void:

@@ -15,7 +15,7 @@ func capture(ingredient: Ingredient):
 # Override default mouse click to release cooked ingredient
 func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
-		if current_ingred and current_ingred.is_cooked():
+		if captured_ingredient and captured_ingredient.is_cooked():
 			cook_timer.stop()
 			release()
 		else:
@@ -23,7 +23,6 @@ func _input_event(_viewport, event, _shape_idx):
 
 
 func _on_CookTimer_timeout() -> void:
-	if current_ingred:
-		if weakref(current_ingred):
-			current_ingred.cook()
-		cook_timer.start()
+	if weakref(captured_ingredient):
+		captured_ingredient.cook()
+	cook_timer.start()

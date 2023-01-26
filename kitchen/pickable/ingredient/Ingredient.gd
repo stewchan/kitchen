@@ -2,11 +2,12 @@ extends Pickable
 class_name Ingredient
 
 
+export var chop_speed = 100
+export var cook_speed = 5
+
 var type: String setget set_type, get_type # eg "tomato"
 var is_chopped: bool = false
 var doneness = 0 # 0 - 100 where 100 is done
-var chop_speed = 100
-var cook_speed = 5
 var image_path: String = "res://assets/ingredients/"
 var plate_layer: int = 0
 
