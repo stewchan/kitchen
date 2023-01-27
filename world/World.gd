@@ -13,7 +13,8 @@ var BoxScene = preload("res://kitchen/pickable/tools/spawn_box/SpawnBox.tscn")
 onready var players = $Players
 onready var servery = $Servery
 onready var hud = $HUD
-onready var orders = $Orders
+onready var orders_manager = $OrdersManager
+onready var orders = $OrdersManager/Orders
 onready var items = $Items
 onready var ingredient_timer = $IngredientTimer
 onready var order_timer = $OrderTimer
@@ -73,7 +74,7 @@ func _on_OrderTimer_timeout() -> void:
 	if Network.is_server():
 		var recipe_name = recipe_list[int(randi()%recipe_list.size())]
 		var recipe = Recipe.new(recipe_name, -1) # random version of this recipe
-		orders.rpc("spawn_order", var2str(recipe))
+		orders_manager.rpc("spawn_order", var2str(recipe))
 
 
 func _on_Servery_served(dish: Dish) -> void:
@@ -81,8 +82,9 @@ func _on_Servery_served(dish: Dish) -> void:
 	for o in orders.get_children():
 		if o.has_dish(dish):
 			order_name = o.name
+			print(order_name)
 			break
-	orders.rpc("complete_order", order_name)	
+	orders_manager.rpc("complete_order", order_name)	
 	items.spawn_plate(get_viewport_rect().size/2)
 
 

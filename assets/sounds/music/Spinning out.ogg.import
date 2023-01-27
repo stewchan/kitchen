@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Spinning out.ogg-2bf37d009c93ead7d38a0c4213337ffd.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/music/Spinning out.ogg"
+dest_files=[ "res://.import/Spinning out.ogg-2bf37d009c93ead7d38a0c4213337ffd.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

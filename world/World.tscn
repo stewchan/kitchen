@@ -48,9 +48,13 @@ tile_data = PoolIntArray( -262149, 2, 0, -262148, 2, 0, -262147, 2, 0, -262146, 
 
 [node name="Players" type="Node" parent="."]
 
-[node name="Orders" type="Node2D" parent="."]
+[node name="OrdersManager" type="Node2D" parent="."]
 visible = false
 script = ExtResource( 8 )
+
+[node name="Orders" type="Node2D" parent="OrdersManager"]
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="OrdersManager"]
 
 [node name="Items" type="Node" parent="."]
 script = ExtResource( 7 )
@@ -76,9 +80,9 @@ wait_time = 3.0
 [node name="OrderTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[connection signal="order_added" from="Orders" to="HUD" method="_on_Orders_order_added"]
-[connection signal="order_removed" from="Orders" to="HUD" method="_on_Orders_order_removed"]
-[connection signal="score_changed" from="Orders" to="HUD" method="_on_Orders_score_changed"]
+[connection signal="order_added" from="OrdersManager" to="HUD" method="_on_Orders_order_added"]
+[connection signal="order_removed" from="OrdersManager" to="HUD" method="_on_Orders_order_removed"]
+[connection signal="score_changed" from="OrdersManager" to="HUD" method="_on_Orders_score_changed"]
 [connection signal="served" from="Servery" to="." method="_on_Servery_served"]
 [connection signal="send_item_to" from="Portal" to="." method="_on_Portal_send_item_to"]
 [connection signal="timeout" from="IngredientTimer" to="." method="_on_IngredientTimer_timeout"]

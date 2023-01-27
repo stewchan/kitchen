@@ -18,9 +18,8 @@ func _init() -> void:
 
 # Override to stop sounds playing on drop
 func drop(_impulse: Vector2 = Vector2.ZERO) -> void:
-#	var stream: AudioStream = audio_player.stream
-	audio_player.stream.loop_mode = AudioStreamSample.LOOP_DISABLED
-#	stream.loop_mode = AudioStreamSample.LOOP_DISABLED
+	var stream: AudioStream = audio_player.stream
+	stream.loop_mode = AudioStreamSample.LOOP_DISABLED
 	.drop(_impulse)
 
 

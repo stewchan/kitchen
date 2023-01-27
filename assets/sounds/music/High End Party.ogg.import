@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/High End Party.ogg-4fc525ebd04763545e2bed05a8e20a46.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/music/High End Party.ogg"
+dest_files=[ "res://.import/High End Party.ogg-4fc525ebd04763545e2bed05a8e20a46.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
