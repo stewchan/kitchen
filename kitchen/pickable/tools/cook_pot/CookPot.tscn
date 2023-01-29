@@ -12,6 +12,7 @@ radius = 30.0666
 
 [node name="CookPot" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+cook_speed = 4
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )

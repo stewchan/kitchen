@@ -4,9 +4,6 @@ class_name KitchenTool
 var captured_ingredient: Ingredient = null
 
 onready var hitbox_collision_shape: CollisionShape2D = $Hitbox/CollisionShape2D
-onready var visibility_notifier: VisibilityNotifier2D = $VisibilityNotifier2D
-onready var visibility_timer: Timer = $VisibilityDetectorTimer
-onready var tool_respawn_timer: Timer = $ToolRespawnTimer
 onready var progress_bar: TextureProgress = $ProgressBar
 onready var audio_player: AudioStreamPlayer2D = $AudioPlayer
 
@@ -43,16 +40,3 @@ func release() -> void:
 func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
 	if not ingredient.is_chopped() and not captured_ingredient:
 		capture(ingredient)
-
-
-# Check if tool was thrown off screen
-func _on_VisibilityDetectorTimer_timeout() -> void:
-	if not visibility_notifier.is_on_screen():
-		visibility_timer.stop()
-		tool_respawn_timer.start()
-
-
-# Reposition tool
-func _on_ToolRespawnTimer_timeout() -> void:
-	position = G.world_node.get_viewport_rect().size/2
-	visibility_timer.start()

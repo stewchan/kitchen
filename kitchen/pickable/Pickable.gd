@@ -9,6 +9,9 @@ var selected = false
 var speed = 100
 var default_mode: int
 
+onready var visibility_notifier = $VisibilityNotifier2D
+onready var respawn_timer = $RespawnTimer
+
 
 func _init() -> void:
 	default_mode = mode
@@ -21,7 +24,6 @@ func _physics_process(delta: float) -> void:
 	if selected:
 		global_transform.origin = get_global_mouse_position()
 		action(delta)
-
 
 
 func pickup() -> void:
@@ -52,3 +54,10 @@ func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		emit_signal("picked_up", self)
 
+
+func _on_VisibilityNotifier2D_screen_exited() -> void:
+	respawn_timer.start()
+
+
+func _on_RespawnTimer_timeout() -> void:
+	position = G.world_node.get_viewport_rect().size/2
