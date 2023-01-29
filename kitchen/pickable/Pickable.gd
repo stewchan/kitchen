@@ -60,4 +60,5 @@ func _on_VisibilityNotifier2D_screen_exited() -> void:
 
 
 func _on_RespawnTimer_timeout() -> void:
+	print("respawning")
 	position = G.world_node.get_viewport_rect().size/2

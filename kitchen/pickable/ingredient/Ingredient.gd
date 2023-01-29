@@ -64,12 +64,14 @@ func get_type() -> String:
 
 
 func disable() -> void:
+	disconnect("screen_exited", self, "_on_VisibilityNotifier2D_screen_exited")
 	set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
 	collision_shape.set_deferred("disabled", true)
 	input_pickable = false
 
 
 func enable() -> void:
+	connect("screen_exited", self, "_on_VisibilityNotifier2D_screen_exited")	
 	set_deferred("mode", RigidBody2D.MODE_RIGID)
 	collision_shape.set_deferred("disabled", false)
 	input_pickable = true
