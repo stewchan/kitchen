@@ -22,7 +22,7 @@ func drop(_impulse: Vector2 = Vector2.ZERO) -> void:
 
 func capture(ingredient: Ingredient):
 	ingredient.disable()
-	G.reparent_to_node(ingredient, self)
+	G.relocate_node(ingredient, self)
 	ingredient.rotation = rotation
 	captured_ingredient = ingredient
 
@@ -30,7 +30,7 @@ func capture(ingredient: Ingredient):
 func release() -> void:
 	if captured_ingredient:
 		captured_ingredient.enable()
-		G.reparent_to_world(captured_ingredient, captured_ingredient.global_position)
+		G.relocate_to_world(captured_ingredient, captured_ingredient.global_position)
 		drop() # Drop the kitchen tool
 		yield(get_tree(), "idle_frame") # Required so pick up signal not called before drop
 		emit_signal("picked_up", captured_ingredient)

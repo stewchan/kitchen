@@ -23,7 +23,7 @@ func capture(ingredient: Ingredient):
 	for ingred in ingredients.get_children():
 		if ingred.same_as(ingredient):
 			return
-	G.reparent_to_node(ingredient, ingredients)
+	G.relocate_node(ingredient, ingredients)
 	ingredient.disable()
 	ingredient.set_plated()
 	ingredient.rotation = rotation

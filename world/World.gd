@@ -5,6 +5,8 @@ var held_object: Pickable = null
 var ingredient_count: int = 0
 var level: int = 1
 var recipe_list = []
+var ingredient_options = []
+var tool_options = []
 
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
@@ -26,25 +28,24 @@ func _ready() -> void:
 
 
 func start_game() -> void:
-	prepare_kitchen()
-#	ingredient_timer.start()
+	players = $Players # players node is replaced after instantiation so this is required
+#	prepare_kitchen()
 	if Network.pid == 1:
 		order_timer.start()
 
 
 # TODO: Set up the game dish options and ingredients based on level
-func prepare_kitchen() -> void:
-	# Set up Recipes and Ingredients
-	recipe_list = ["pizza"]
-	for recipe_name in recipe_list:
-		for ingredients in Data.recipes[recipe_name]:
-			for ingredient in ingredients:
-				if not items.ingredient_options.has(ingredient):
-					items.ingredient_options.append(ingredient)
-	items.spawn_plate(get_viewport_rect().size/2)
-	items.spawn_cutting_board(get_viewport_rect().size/2)
-#	items.spawn_cookpot(Vector2(800,500))
-	items.spawn_boxes()
+#func prepare_kitchen() -> void:
+#	# Set up Recipes and Ingredients
+#	recipe_list = ["pizza"]
+#	for recipe_name in recipe_list:
+#		for ingredients in Data.recipes[recipe_name]:
+#			for ingredient in ingredients:
+#				if not items.ingredient_options.has(ingredient):
+#					items.ingredient_options.append(ingredient)
+#
+#	items.spawn_tool("Plate")
+#	items.spawn_tool("CuttingBoard")
 
 
 # Called when picking up an object
@@ -82,10 +83,9 @@ func _on_Servery_served(dish: Dish) -> void:
 	for o in orders.get_children():
 		if o.has_dish(dish):
 			order_name = o.name
-			print(order_name)
 			break
 	orders_manager.rpc("complete_order", order_name)	
-	items.spawn_plate(get_viewport_rect().size/2)
+	items.spawn_tool("Plate")
 
 
 func _on_Portal_send_item_to(item: Ingredient, peer: int) -> void:
