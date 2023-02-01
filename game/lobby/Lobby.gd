@@ -3,8 +3,6 @@ extends Control
 
 signal start_game
 
-var PlayerScene: PackedScene = preload("res://player/Player.tscn")
-
 onready var config_ui = $C/V/Config
 onready var server_ip = $C/V/Config/V/ServerIP
 onready var message_label = $C/V/Waiting/MessageLabel
@@ -63,7 +61,7 @@ remotesync func update_players() -> void:
 
 remotesync func spawn_player(pid: int) -> void:
 	if not players.get_node_or_null(str(pid)):
-		var player = PlayerScene.instance()
+		var player = Node.new() #instance()
 		player.name = str(pid)
 		if pid == Network.pid:
 			player.set_network_master(pid)

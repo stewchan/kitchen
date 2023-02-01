@@ -4,9 +4,9 @@ class_name GameWorld
 var held_object: Pickable = null
 var ingredient_count: int = 0
 var level: int = 1
-var recipe_list = []
-var ingredient_options = []
-var tool_options = []
+var recipe_list: Array = []
+var ingredient_options: Array = []
+var tool_options: Array = []
 
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
@@ -27,25 +27,19 @@ func _ready() -> void:
 	randomize()
 
 
-func start_game() -> void:
-	players = $Players # players node is replaced after instantiation so this is required
-#	prepare_kitchen()
+func setup_game() -> void:
+	players = $Players
+	players.add_recipes(["pizza"])
+	players.add_tools(["Plate", "CuttingBoard"])
 	if Network.pid == 1:
-		order_timer.start()
+		players.prepare_tools()
+		players.prepare_boxes()
+#		players.prepare_portals(
+		rpc("_start_game")
 
 
-# TODO: Set up the game dish options and ingredients based on level
-#func prepare_kitchen() -> void:
-#	# Set up Recipes and Ingredients
-#	recipe_list = ["pizza"]
-#	for recipe_name in recipe_list:
-#		for ingredients in Data.recipes[recipe_name]:
-#			for ingredient in ingredients:
-#				if not items.ingredient_options.has(ingredient):
-#					items.ingredient_options.append(ingredient)
-#
-#	items.spawn_tool("Plate")
-#	items.spawn_tool("CuttingBoard")
+remotesync func _start_game() -> void:
+	order_timer.start()
 
 
 # Called when picking up an object
@@ -88,6 +82,3 @@ func _on_Servery_served(dish: Dish) -> void:
 	items.spawn_tool("Plate")
 
 
-func _on_Portal_send_item_to(item: Ingredient, peer: int) -> void:
-	items.rpc_id(peer, "spawn_ingredient", item.type)
-	item.queue_free()

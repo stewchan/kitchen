@@ -1,17 +1,17 @@
 extends Node
 
 
-var world_node: GameWorld
+var world_node: GameWorld setget set_world
 
 
-func set_world(world: Node2D) -> void:
+func set_world(world: GameWorld) -> void:
 	world_node = world
 
 
 func reparent(child, new_parent) -> void:
 	child.get_parent().remove_child(child)
-	new_parent.call_deferred("add_child", child)
-	child.set_deferred("owner", new_parent)
+	new_parent.add_child( child)
+	child.owner = world_node
 
 
 func relocate_node(child: Pickable, new_parent, pos: Vector2 = Vector2.ZERO) -> void:
