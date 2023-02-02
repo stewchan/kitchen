@@ -4,7 +4,7 @@ class_name SpawnBox
 
 export var spawn_speed: int = 100
 
-var ingred_type: String
+var ingredient_type: String
 var can_spawn: bool = false
 var IngredientScene: PackedScene = preload("res://kitchen/pickable/ingredient/Ingredient.tscn")
 var base_alpha = 0.3
@@ -18,14 +18,20 @@ func _ready() -> void:
 
 
 func spawn_ingredient() -> void:
-	if ingred_type and not captured_ingredient:
-		var ingredient = IngredientScene.instance()
-		ingredient.type = ingred_type
-		add_child(ingredient)
-		ingredient.connect("picked_up", G.world_node, "on_pickup")
-		ingredient.connect("dropped", G.world_node, "on_dropped")
-		ingredient.modulate.a = base_alpha
-		capture(ingredient)
+	if captured_ingredient or not ingredient_type:
+		return
+	var ingredient = IngredientScene.instance()
+	G.ingredient_count += 1
+	ingredient.type = ingredient_type
+	add_child(ingredient)
+	ingredient.connect("picked_up", G.world_node, "on_pickup")
+	ingredient.connect("dropped", G.world_node, "on_dropped")
+	ingredient.modulate.a = base_alpha
+	var index = G.ingredient_options.find(ingredient.type)
+	assert(index >= 0)
+	ingredient.plate_layer = index
+	ingredient.name = ingredient.type + str(G.ingredient_count)
+	capture(ingredient)
 
 
 func action(delta: float) -> void:

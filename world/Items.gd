@@ -3,7 +3,6 @@ extends Node
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
 
-var ingred_count: int = 0
 var items: Dictionary = {
 	"Plate": preload("res://kitchen/pickable/plate/Plate.tscn"),
 	"CuttingBoard": preload("res://kitchen/pickable/tools/cutting_board/CuttingBoard.tscn"),
@@ -34,7 +33,7 @@ remotesync func spawn_tool(tool_name: String, pos: Vector2 = G.world_node.get_vi
 remotesync func spawn_box(ingred_type: String, pos: Vector2 = G.world_node.get_viewport_rect().size/2) -> void:
 	var box = spawn("Box", pos)
 	call_deferred("move_child", box, 0)
-	box.ingred_type = ingred_type
+	box.ingredient_type = ingred_type
 
 
 remotesync func on_Portal_spawn_ingredient(
@@ -42,16 +41,15 @@ remotesync func on_Portal_spawn_ingredient(
 		pos: Vector2 = portal_spawn_point.global_position,
 		impulse: Vector2 = Vector2.ZERO) -> void:
 	var ingredient = spawn("Ingredient", pos) as Ingredient
-	ingred_count += 1
+	G.ingredient_count += 1
 	var ingred = str2var(ingredient_json) as Ingredient
 	ingredient.type = ingred.type
 	ingredient.set_is_chopped(ingred.is_chopped())
 #	ingredient.set_is_cooked(ingredient.is_cooked())	
-	
 	var index = G.ingredient_options.find(ingred.type)
 	assert(index >= 0)
 	ingredient.plate_layer = index
-	ingredient.name = ingred.type + str(ingred_count)
+	ingredient.name = ingred.type + str(G.ingredient_count)
 	ingredient.apply_impulse(Vector2.ZERO, impulse)
 
 
