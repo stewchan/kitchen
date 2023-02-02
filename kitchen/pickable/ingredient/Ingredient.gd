@@ -40,7 +40,7 @@ func set_doneness(val: int) -> void:
 
 func set_is_cooked(is_cooked: bool) -> void:
 	if is_cooked:
-		state == "cooked"
+		state = "cooked"
 		update_texture(state)
 
 
@@ -48,13 +48,13 @@ func set_plated():
 	sprite.texture = load(image_path + str(type) + "-plated.png")
 
 
-func update_texture(state: String) -> void:
-	if state == "raw":
+func update_texture(_state: String) -> void:
+	if _state == "raw":
 		sprite.texture = load(image_path + str(type) + ".png")
-	elif state == "chopped":
+	elif _state == "chopped":
 		print(sprite)
 		$Sprite.texture = load(image_path + str(type) + "-cut.png")
-	elif state == "cooked":
+	elif _state == "cooked":
 		sprite.texture = load(image_path + str(type) + "-cut.png")
 		print("TODO: create ingredient cooked texture")
 

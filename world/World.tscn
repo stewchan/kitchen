@@ -62,10 +62,10 @@ script = ExtResource( 8 )
 script = ExtResource( 7 )
 
 [node name="PortalSpawnPoint" type="Position2D" parent="Items"]
-position = Vector2( 127, 276 )
+position = Vector2( -34, 274 )
 
 [node name="Portal" parent="." instance=ExtResource( 2 )]
-position = Vector2( 911, 284 )
+position = Vector2( 1064, 285 )
 collision_layer = 8
 
 [node name="Servery" parent="." instance=ExtResource( 5 )]

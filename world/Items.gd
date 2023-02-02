@@ -39,7 +39,7 @@ remotesync func spawn_box(ingred_type: String, pos: Vector2 = G.world_node.get_v
 remotesync func on_Portal_spawn_ingredient(
 		ingredient_json: String,
 		pos: Vector2 = portal_spawn_point.global_position,
-		impulse: Vector2 = Vector2.ZERO) -> void:
+		impulse: Vector2 = Vector2.RIGHT * 500) -> void:
 	var ingredient = spawn("Ingredient", pos) as Ingredient
 	G.ingredient_count += 1
 	var ingred = str2var(ingredient_json) as Ingredient
