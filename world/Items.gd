@@ -37,25 +37,25 @@ remotesync func spawn_box(ingred_type: String, pos: Vector2 = G.world_node.get_v
 	box.ingred_type = ingred_type
 
 
+remotesync func on_Portal_spawn_ingredient(
+		ingredient_json: String,
+		pos: Vector2 = portal_spawn_point.global_position,
+		impulse: Vector2 = Vector2.ZERO) -> void:
+	var ingredient = spawn("Ingredient", pos) as Ingredient
+	ingred_count += 1
+	var ingred = str2var(ingredient_json) as Ingredient
+	ingredient.type = ingred.type
+	ingredient.set_is_chopped(ingred.is_chopped())
+#	ingredient.set_is_cooked(ingredient.is_cooked())	
+	
+	var index = G.ingredient_options.find(ingred.type)
+	assert(index >= 0)
+	ingredient.plate_layer = index
+	ingredient.name = ingred.type + str(ingred_count)
+	ingredient.apply_impulse(Vector2.ZERO, impulse)
+
+
 func random_ingred_type() -> String:
 	var i = int(randi() % G.ingredient_options.size())
 	return G.ingredient_options[i]
-
-
-remotesync func on_Portal_spawn_ingredient(
-#		type: String = random_ingred_type(),
-		ingredient: Ingredient,
-		pos: Vector2 = portal_spawn_point.global_position,
-		impulse: Vector2 = Vector2.ZERO) -> void:
-	var ingred = spawn("Ingredient", pos) as Ingredient
-	ingred_count += 1
-	ingred.type = ingredient.type
-	var index = G.ingredient_options.find(ingred.type)
-	assert(index >= 0)
-	ingred.plate_layer = index
-	ingred.name = ingred.type + str(ingred_count)
-	ingred.apply_impulse(Vector2.ZERO, impulse)
-	ingred.set_is_chopped(ingredient.is_chopped())
-#	ingred.set_is_cooked(ingredient.is_cooked())	
-
 
