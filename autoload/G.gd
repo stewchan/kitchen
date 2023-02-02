@@ -2,6 +2,9 @@ extends Node
 
 
 var world_node: GameWorld setget set_world
+var recipe_list: Array
+var ingredient_options: Array
+var tool_options: Array
 
 
 func set_world(world: GameWorld) -> void:

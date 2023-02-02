@@ -27,7 +27,7 @@ func spawn(item_name: String, pos: Vector2 = G.world_node.get_viewport_rect().si
 
 
 remotesync func spawn_tool(tool_name: String, pos: Vector2 = G.world_node.get_viewport_rect().size/2) -> void:
-	var spawned_tool = spawn(tool_name)
+	var spawned_tool = spawn(tool_name, pos)
 	call_deferred("move_child", spawned_tool, 0)
 
 
@@ -38,18 +38,19 @@ remotesync func spawn_box(ingred_type: String, pos: Vector2 = G.world_node.get_v
 
 
 func random_ingred_type() -> String:
-	var i = int(randi() % G.world_node.ingredient_options.size())
-	return G.world_node.ingredient_options[i]
+	var i = int(randi() % G.ingredient_options.size())
+	return G.ingredient_options[i]
 
 
-remotesync func on_portal_spawn_ingredient(
+remotesync func on_Portal_spawn_ingredient(
 		type: String = random_ingred_type(),
-		pos: Vector2 = portal_spawn_point.position,
+		pos: Vector2 = portal_spawn_point.global_position,
 		impulse: Vector2 = Vector2.ZERO) -> void:
 	var ingred = spawn("Ingredient", pos)	
 	ingred_count += 1
 	ingred.type = type
-	var index = G.world_node.ingredient_options.find(ingred.type)
+	print(G.ingredient_options)
+	var index = G.ingredient_options.find(ingred.type)
 	assert(index >= 0)
 	ingred.plate_layer = index
 	ingred.name = ingred.type + str(ingred_count)

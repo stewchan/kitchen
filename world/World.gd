@@ -4,9 +4,6 @@ class_name GameWorld
 var held_object: Pickable = null
 var ingredient_count: int = 0
 var level: int = 1
-var recipe_list: Array = []
-var ingredient_options: Array = []
-var tool_options: Array = []
 
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
@@ -28,13 +25,12 @@ func _ready() -> void:
 
 
 func setup_game() -> void:
-	players = $Players
-	players.add_recipes(["pizza"])
-	players.add_tools(["Plate", "CuttingBoard"])
 	if Network.pid == 1:
+		players.rpc("add_recipes", ["pizza"])
+		players.rpc("add_tools", ["Plate", "CuttingBoard"])
 		players.prepare_tools()
 		players.prepare_boxes()
-#		players.prepare_portals(
+		players.prepare_portals()
 		rpc("_start_game")
 
 
@@ -67,7 +63,7 @@ func _on_IngredientTimer_timeout() -> void:
 
 func _on_OrderTimer_timeout() -> void:
 	if Network.is_server():
-		var recipe_name = recipe_list[int(randi()%recipe_list.size())]
+		var recipe_name = G.recipe_list[int(randi()%G.recipe_list.size())]
 		var recipe = Recipe.new(recipe_name, -1) # random version of this recipe
 		orders_manager.rpc("spawn_order", var2str(recipe))
 
