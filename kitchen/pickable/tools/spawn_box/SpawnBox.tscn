@@ -28,4 +28,7 @@ disabled = true
 
 [node name="RestockTimer" type="Timer" parent="." index="5"]
 
+[node name="RespawnTimer" parent="." index="7"]
+wait_time = 3.0
+
 [connection signal="timeout" from="RestockTimer" to="." method="_on_RestockTimer_timeout"]

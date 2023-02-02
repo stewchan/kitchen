@@ -56,9 +56,8 @@ func _input_event(_viewport, event, _shape_idx):
 
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:
-	pass
-#	respawn_timer.start()
+	respawn_timer.start()
 
 
 func _on_RespawnTimer_timeout() -> void:
-	position = G.get_viewport_rect().size/2
+	position = G.world_node.get_viewport_rect().size/2
