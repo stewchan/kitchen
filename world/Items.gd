@@ -43,17 +43,19 @@ func random_ingred_type() -> String:
 
 
 remotesync func on_Portal_spawn_ingredient(
-		type: String = random_ingred_type(),
+#		type: String = random_ingred_type(),
+		ingredient: Ingredient,
 		pos: Vector2 = portal_spawn_point.global_position,
 		impulse: Vector2 = Vector2.ZERO) -> void:
-	var ingred = spawn("Ingredient", pos)	
+	var ingred = spawn("Ingredient", pos) as Ingredient
 	ingred_count += 1
-	ingred.type = type
-	print(G.ingredient_options)
+	ingred.type = ingredient.type
 	var index = G.ingredient_options.find(ingred.type)
 	assert(index >= 0)
 	ingred.plate_layer = index
 	ingred.name = ingred.type + str(ingred_count)
 	ingred.apply_impulse(Vector2.ZERO, impulse)
+	ingred.set_is_chopped(ingredient.is_chopped())
+#	ingred.set_is_cooked(ingredient.is_cooked())	
 
 

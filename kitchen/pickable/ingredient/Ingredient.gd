@@ -6,37 +6,42 @@ export var chop_speed = 100
 export var cook_speed = 5
 
 var type: String setget set_type, get_type # eg "tomato"
-var _is_chopped: bool setget , is_chopped
-var _is_cooked: bool setget , is_cooked
+var state: String = "raw" # chopped, cooked
 var _doneness = 0
 var image_path: String = "res://assets/images/ingredients/"
 var plate_layer: int = 0
-
 onready var sprite: Sprite = $Sprite
 onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 
 func _ready():
-	update_texture("raw")
+	update_texture(state)
+
+
+func set_is_chopped(is_chopped: bool) -> void:
+	if is_chopped:
+		state = "chopped"	
+		update_texture(state)
 
 
 func is_chopped() -> bool:
-	return _is_chopped
+	return state == "chopped"
 
 
 func is_cooked() -> bool:
-	return _is_cooked
+	return state == "cooked"
 
 
-func set_is_chopped() -> void:
-	_is_chopped = true
-	update_texture("chopped")
+func set_doneness(val: int) -> void:
+	_doneness = val
+	if _doneness >= 100:
+		set_is_cooked(true)
 
 
-func set_is_cooked(doneness: int) -> void:
-	_is_cooked = true
-	_doneness = doneness
-	update_texture("cooked")
+func set_is_cooked(is_cooked: bool) -> void:
+	if is_cooked:
+		state == "cooked"
+		update_texture(state)
 
 
 func set_plated():
@@ -47,7 +52,8 @@ func update_texture(state: String) -> void:
 	if state == "raw":
 		sprite.texture = load(image_path + str(type) + ".png")
 	elif state == "chopped":
-		sprite.texture = load(image_path + str(type) + "-cut.png")
+		print(sprite)
+		$Sprite.texture = load(image_path + str(type) + "-cut.png")
 	elif state == "cooked":
 		sprite.texture = load(image_path + str(type) + "-cut.png")
 		print("TODO: create ingredient cooked texture")
