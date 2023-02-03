@@ -1,6 +1,5 @@
 extends Node
 
-
 var world_node: GameWorld setget set_world
 var recipe_list: Array
 var ingredient_options: Array

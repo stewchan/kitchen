@@ -1,9 +1,13 @@
 extends Node2D
 class_name GameWorld
 
+signal clock_ticked(time_remaining)
+signal game_over()
+
 var held_object: Pickable = null
 var ingredient_count: int = 0
 var level: int = 1
+export var time_remaining: int = 5
 
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")
@@ -18,6 +22,7 @@ onready var items = $Items
 onready var ingredient_timer = $IngredientTimer
 onready var order_timer = $OrderTimer
 onready var portal = $Portal
+onready var clock_timer = $ClockTimer
 
 
 func _ready() -> void:
@@ -25,6 +30,7 @@ func _ready() -> void:
 
 
 func setup_game() -> void:
+	emit_signal("clock_ticked", time_remaining)	
 	if Network.pid == 1:
 		players.rpc("add_recipes", ["pizza"])
 		players.rpc("add_tools", ["Plate", "CuttingBoard"])
@@ -35,7 +41,9 @@ func setup_game() -> void:
 
 
 remotesync func _start_game() -> void:
+	get_tree	().paused = false
 	order_timer.start()
+	clock_timer.start()
 
 
 # Called when picking up an object
@@ -78,3 +86,14 @@ func _on_Servery_served(dish: Dish) -> void:
 	items.spawn_tool("Plate")
 
 
+remotesync func stop_game() -> void:
+	get_tree	().paused = true
+
+
+func _on_ClockTimer_timeout() -> void:
+	time_remaining -= 1
+	emit_signal("clock_ticked", time_remaining)
+	if time_remaining <= 0:
+		clock_timer.stop()
+		emit_signal("game_over")
+		rpc("stop_game")

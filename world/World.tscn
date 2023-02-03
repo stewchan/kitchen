@@ -83,11 +83,16 @@ wait_time = 3.0
 [node name="OrderTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="ClockTimer" type="Timer" parent="."]
+
+[connection signal="clock_ticked" from="." to="HUD" method="_on_World_clock_ticked"]
+[connection signal="game_over" from="." to="HUD" method="_on_World_game_over"]
 [connection signal="order_added" from="OrdersManager" to="HUD" method="_on_Orders_order_added"]
 [connection signal="order_removed" from="OrdersManager" to="HUD" method="_on_Orders_order_removed"]
 [connection signal="score_changed" from="OrdersManager" to="HUD" method="_on_Orders_score_changed"]
 [connection signal="served" from="Servery" to="." method="_on_Servery_served"]
 [connection signal="timeout" from="IngredientTimer" to="." method="_on_IngredientTimer_timeout"]
 [connection signal="timeout" from="OrderTimer" to="." method="_on_OrderTimer_timeout"]
+[connection signal="timeout" from="ClockTimer" to="." method="_on_ClockTimer_timeout"]
 
 [editable path="Servery"]
