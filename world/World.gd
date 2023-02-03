@@ -7,7 +7,7 @@ signal game_over()
 var held_object: Pickable = null
 var ingredient_count: int = 0
 var level: int = 1
-export var time_remaining: int = 5
+export var time_remaining: int = 40
 
 var OrderScene = preload("res://kitchen/servery/order/Order.tscn")
 var DishScene = preload("res://kitchen/servery/dish/Dish.tscn")

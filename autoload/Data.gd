@@ -4,6 +4,8 @@ extends Node
 # Ensure the main recipe's list of ingredients is listed first in the array
 var recipes : Dictionary = {
 	"pizza":[
+		["dough", "tomato", "cheese", "mushroom"],
+		["dough", "tomato", "cheese"],
 		["dough", "tomato", "mushroom"],
 		["dough", "tomato"]
 	]
