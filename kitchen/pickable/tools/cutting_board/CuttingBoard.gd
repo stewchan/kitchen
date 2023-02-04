@@ -1,7 +1,6 @@
 extends KitchenTool
 class_name CuttingBoard
 
-
 export var chop_speed: int = 100
 
 var audio_streams: Array = [
@@ -30,3 +29,8 @@ func action(delta: float) -> void:
 			captured_ingredient.set_is_chopped(true)
 			progress_bar.value = 0
 			progress_bar.hide()
+
+
+func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
+	if not ingredient.is_chopped() and not captured_ingredient:
+		capture(ingredient)

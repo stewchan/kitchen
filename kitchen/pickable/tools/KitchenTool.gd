@@ -31,12 +31,15 @@ func release() -> void:
 	if captured_ingredient:
 		captured_ingredient.enable()
 		G.relocate_to_world(captured_ingredient, captured_ingredient.global_position)
-		drop() # Drop the kitchen tool
-		yield(get_tree(), "idle_frame") # Required so pick up signal not called before drop
-		emit_signal("picked_up", captured_ingredient)
+		# Drop the kitchen tool
+		drop()
+		# Required so pick up signal not called before drop
+		yield(get_tree(), "idle_frame") 
+		# Immediately pick up released ingredient
+		emit_signal("picked_up", captured_ingredient) 
 		captured_ingredient = null
 
 
+# Override in subclass
 func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
-	if not ingredient.is_chopped() and not captured_ingredient:
-		capture(ingredient)
+	pass
