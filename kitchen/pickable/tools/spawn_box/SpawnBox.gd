@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func spawn_ingredient() -> void:
-	if captured_ingredient or not ingredient_type:
+	if captured_item or not ingredient_type:
 		return
 	var ingredient = IngredientScene.instance()
 	G.ingredient_count += 1
@@ -35,7 +35,7 @@ func spawn_ingredient() -> void:
 
 
 func action(delta: float) -> void:
-	if not captured_ingredient:
+	if not captured_item:
 		return
 	if not progress_bar.visible:
 		progress_bar.show()
@@ -46,7 +46,7 @@ func action(delta: float) -> void:
 		restock_timer.start()
 	else:
 		progress_bar.value += spawn_speed * delta
-		captured_ingredient.modulate.a = base_alpha \
+		captured_item.modulate.a = base_alpha \
 			if progress_bar.value < progress_bar.max_value * base_alpha \
 			else progress_bar.value/progress_bar.max_value
 		if progress_bar.value >= progress_bar.max_value:
@@ -55,5 +55,5 @@ func action(delta: float) -> void:
 
 
 func _on_RestockTimer_timeout() -> void:
-	if not captured_ingredient:
+	if not captured_item:
 		spawn_ingredient()

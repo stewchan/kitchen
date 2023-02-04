@@ -12,7 +12,6 @@ var image_path: String = "res://assets/images/ingredients/"
 var plate_layer: int = 0
 
 onready var sprite: Sprite = $Sprite
-onready var collision_shape: CollisionShape2D = $CollisionShape2D
 onready var steam: Particles2D = $Steam
 
 
@@ -68,20 +67,6 @@ func set_type(value: String) -> void:
 
 func get_type() -> String:
 	return type
-
-
-func disable() -> void:
-#	disconnect("screen_exited", self, "_on_VisibilityNotifier2D_screen_exited")
-	set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
-	collision_shape.set_deferred("disabled", true)
-	input_pickable = false
-
-
-func enable() -> void:
-#	connect("screen_exited", self, "_on_VisibilityNotifier2D_screen_exited")	
-	set_deferred("mode", RigidBody2D.MODE_RIGID)
-	collision_shape.set_deferred("disabled", false)
-	input_pickable = true
 
 
 func trash() -> void:

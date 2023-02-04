@@ -8,7 +8,9 @@ var doneness: int = 0
 onready var cook_timer = $CookTimer
 
 
-func capture(ingredient: Ingredient):
+func capture(ingredient: Pickable):
+	if not ingredient is Ingredient:
+		return
 	if ingredient.has_method("cook") and ingredient.is_cooked():
 		return
 	.capture(ingredient)
@@ -37,7 +39,7 @@ func cook():
 # Override default mouse click to release cooked ingredient
 func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
-		if captured_ingredient and captured_ingredient.is_cooked():
+		if captured_item and captured_item.is_cooked():
 			cook_timer.stop()
 			release()
 		else:
@@ -45,6 +47,6 @@ func _input_event(_viewport, event, _shape_idx):
 
 
 func _on_CookTimer_timeout() -> void:
-	if weakref(captured_ingredient):
+	if weakref(captured_item):
 		cook()
 	cook_timer.start()

@@ -7,8 +7,8 @@ onready var cook_timer = $CookTimer
 
 
 func cook():
-	var doneness = captured_ingredient.doneness + cook_speed
-	captured_ingredient.set_doneness(doneness)
+	var doneness = captured_item.doneness + cook_speed
+	captured_item.set_doneness(doneness)
 	if doneness < 100:
 		if not progress_bar.visible:
 			progress_bar.show()
@@ -18,7 +18,7 @@ func cook():
 			progress_bar.hide()
 		
 		if doneness < 150:
-			captured_ingredient.set_is_cooked(true)
+			captured_item.set_is_cooked(true)
 		elif doneness < 250:
 			print("overcooked")
 		elif doneness < 350:
@@ -30,9 +30,7 @@ func cook():
 # Override default mouse click to release cooked ingredient
 func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
-		print("1")
-		if captured_ingredient and captured_ingredient.is_cooked():
-			print("2")
+		if captured_item and captured_item.is_cooked():
 			cook_timer.stop()
 			release()
 		else:
@@ -40,14 +38,22 @@ func _input_event(_viewport, event, _shape_idx):
 
 
 func _on_CookTimer_timeout() -> void:
-	if weakref(captured_ingredient):
+	if weakref(captured_item):
 		cook()
 	cook_timer.start()
 
 
-func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
-	if not captured_ingredient:
-		if ingredient.is_chopped() and not ingredient.is_cooked():
-			capture(ingredient)
-			cook_timer.start()
+func _on_Hitbox_body_entered(plate: Pickable) -> void:
+	if captured_item:
+		return
+	if not plate is Plate:
+		return
+	var dish = plate.get_dish()
+	if dish.is_empty():
+		print("No dish on plate")
+		return
+	else:
+		print("capture from plate")
+#		capture(plate.get_dish())
+	
 			

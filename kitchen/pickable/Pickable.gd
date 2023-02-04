@@ -11,6 +11,7 @@ var default_mode: int
 
 onready var visibility_notifier = $VisibilityNotifier2D
 onready var respawn_timer = $RespawnTimer
+onready var collision_shape = $CollisionShape2D
 
 
 func _init() -> void:
@@ -43,6 +44,20 @@ func drop(impulse: Vector2 = Vector2.ZERO) -> void:
 		apply_central_impulse(impulse.limit_length(1000))
 		# Confirm object has been dropped by emitting a signal
 		emit_signal("dropped", self)
+
+
+func disable() -> void:
+#	disconnect("screen_exited", self, "_on_VisibilityNotifier2D_screen_exited")
+	set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
+	collision_shape.set_deferred("disabled", true)
+	input_pickable = false
+
+
+func enable() -> void:
+#	connect("screen_exited", self, "_on_VisibilityNotifier2D_screen_exited")	
+	set_deferred("mode", RigidBody2D.MODE_RIGID)
+	collision_shape.set_deferred("disabled", false)
+	input_pickable = true
 
 
 # Override action to be performed when picked up

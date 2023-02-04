@@ -12,9 +12,9 @@ var audio_streams: Array = [
 
 
 func action(delta: float) -> void:
-	if not captured_ingredient:
+	if not captured_item:
 		return
-	if captured_ingredient.is_chopped():
+	if captured_item.is_chopped():
 		release()
 	else:
 		# Chop the ingredient
@@ -26,11 +26,11 @@ func action(delta: float) -> void:
 		if progress_bar.value < progress_bar.max_value:
 			progress_bar.value += chop_speed * delta
 		elif progress_bar.value >= progress_bar.max_value:
-			captured_ingredient.set_is_chopped(true)
+			captured_item.set_is_chopped(true)
 			progress_bar.value = 0
 			progress_bar.hide()
 
 
 func _on_Hitbox_body_entered(ingredient: Ingredient) -> void:
-	if not ingredient.is_chopped() and not captured_ingredient:
+	if not ingredient.is_chopped() and not captured_item:
 		capture(ingredient)
