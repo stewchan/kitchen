@@ -33,7 +33,7 @@ func setup_game() -> void:
 	emit_signal("clock_ticked", time_remaining)	
 	if Network.pid == 1:
 		players.rpc("add_recipes", ["pizza"])
-		players.rpc("add_tools", ["Plate", "CuttingBoard"])
+		players.rpc("add_tools", ["Plate", "CuttingBoard", "Oven"])
 		players.prepare_tools()
 		players.prepare_boxes()
 		players.prepare_portals()

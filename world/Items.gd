@@ -8,6 +8,7 @@ var items: Dictionary = {
 	"CuttingBoard": preload("res://kitchen/pickable/tools/cutting_board/CuttingBoard.tscn"),
 	"Ingredient": preload("res://kitchen/pickable/ingredient/Ingredient.tscn"),
 	"CookPot": preload("res://kitchen/pickable/tools/cook_pot/CookPot.tscn"),
+	"Oven": preload("res://kitchen/pickable/tools/oven/Oven.tscn"),
 	"Box": preload("res://kitchen/pickable/tools/spawn_box/SpawnBox.tscn")
 }
 

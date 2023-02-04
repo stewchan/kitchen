@@ -10,8 +10,10 @@ var state: String = "raw" # chopped, cooked
 var _doneness = 0
 var image_path: String = "res://assets/images/ingredients/"
 var plate_layer: int = 0
+
 onready var sprite: Sprite = $Sprite
 onready var collision_shape: CollisionShape2D = $CollisionShape2D
+onready var steam_particles2D: Particles2D = $SteamParticles2D
 
 
 func _ready():
@@ -42,6 +44,7 @@ func set_is_cooked(is_cooked: bool) -> void:
 	if is_cooked:
 		state = "cooked"
 		update_texture(state)
+		steam_particles2D.emitting = true
 
 
 func set_plated():
