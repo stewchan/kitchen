@@ -20,18 +20,34 @@ func get_dish() -> Dish:
 
 
 func capture(ingredient: Ingredient):
-	for ingred in ingredients.get_children():
-		if ingred.same_as(ingredient):
-			return
-	G.relocate_node(ingredient, ingredients)
-	ingredient.disable()
-	ingredient.set_plated()
-	ingredient.rotation = rotation
+	# If plate is empty
+	if isEmpty():
+		G.relocate_node(ingredient, ingredients)
+		ingredient.disable()
+		ingredient.set_plated()
+		ingredient.rotation = rotation
+	else:
+		var plated_ingredient = ingredients.get_child(0) as Ingredient
+		var all_ingredients = plated_ingredient.get_nested_ingredients()
+		var ingred_types = plated_ingredient.get_nested_ingredient_types()
+		if not ingred_types.has(ingredient.type):
+			plated_ingredient = plated_ingredient.nest(ingredient)
+			
+#	for ingred in ingredients.get_children():
+#		if ingred.same_as(ingredient):
+#			return
+#		G.relocate_node(ingredient, ingredients)
+#		ingredient.disable()
+#		ingredient.set_plated()
+#		ingredient.rotation = rotation
 	# move ingredients into correct draw order
-	for i in range(0, ingredients.get_children().size()):
-		if ingredient.plate_layer < ingredients.get_children()[i].plate_layer:
-			ingredients.call_deferred("move_child", ingredient, i)
-			break
+#	for i in range(0, ingredients.get_children().size()):
+#		if ingredient.plate_layer < ingredients.get_children()[i].plate_layer:
+#			ingredients.call_deferred("move_child", ingredient, i)
+#			break
+
+func isEmpty() -> bool:
+	return ingredients.get_child_count() == 0
 
 
 func trash():

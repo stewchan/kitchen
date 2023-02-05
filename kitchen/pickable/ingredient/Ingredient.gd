@@ -18,6 +18,43 @@ onready var steam: Particles2D = $Steam
 func _ready():
 	update_texture(state)
 
+
+func get_nested_ingredients() -> Array:
+	var ingred = get_child(0)
+	if not ingred as Ingredient:
+		return []
+	var list = [ingred]
+	return list.append_array(ingred.get_nested_ingredients())
+
+
+func get_nested_ingredient_types() -> Array:
+	var ingredients = get_nested_ingredients()
+	if not ingredients:
+		return []
+	var ingred_types = []
+	for ingredient in ingredients:
+		ingred_types.append(ingredient.type)
+	return ingred_types
+
+
+func nest(ingredient: Ingredient) -> void:
+	# If incoming ingredient should be parent
+	if ingredient.plate_layer < plate_layer:
+		G.relocate_node(ingredient, get_parent(), 1)
+		G.relocate_node(self, ingredient, 1)
+		disable()
+		return
+	# If no other ingredient is nested
+	var ingred = get_child(1)
+	if not ingred as Ingredient:
+		G.relocate_node(ingredient, self, 1)
+		ingredient.disable()
+#		ingredient.set_plated()
+		ingredient.rotation = rotation
+	else:
+		ingred.nest(ingredient)
+
+
 func is_chopped() -> bool:
 	return state == "chopped"
 

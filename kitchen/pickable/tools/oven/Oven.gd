@@ -43,17 +43,17 @@ func _on_CookTimer_timeout() -> void:
 	cook_timer.start()
 
 
-func _on_Hitbox_body_entered(plate: Pickable) -> void:
+func _on_Hitbox_body_entered(item: Pickable) -> void:
 	if captured_item:
 		return
-	if not plate is Plate:
-		return
-	var dish = plate.get_dish()
-	if dish.is_empty():
-		print("No dish on plate")
-		return
-	else:
-		print("capture from plate")
-#		capture(plate.get_dish())
+	print(item)		
+	if item is Plate:
+		var dish = item.get_dish()
+		if dish.is_empty():
+			print("No dish on plate")
+			return
+		else:
+			print("capture from plate")
+	#		capture(plate.get_dish())
 	
 			

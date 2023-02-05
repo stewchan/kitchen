@@ -11,6 +11,9 @@ cook_speed = 20
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
 
+[node name="Hitbox" parent="." index="2"]
+collision_mask = 20
+
 [node name="CookTimer" type="Timer" parent="." index="7"]
 
 [connection signal="timeout" from="CookTimer" to="." method="_on_CookTimer_timeout"]
